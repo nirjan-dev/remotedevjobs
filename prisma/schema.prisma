@@ -3,14 +3,95 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   // NOTE: You probably want to change this to another database later on
   provider = "sqlite"
   // This value is read from the .env file.
   url      = env("DATABASE_URL")
 }
+
 model Example {
   id          String @id @default(uuid())
   description String
   details     String
+}
+
+model Company {
+  id          String @id @default(uuid())
+  name        String
+  description String
+  Jobs        Jobs[]
+}
+
+model Location {
+  id   String @id @default(uuid())
+  name String
+  Jobs Jobs[]
+}
+
+model Duration {
+  id   String @id @default(uuid())
+  name String
+  Jobs Jobs[]
+}
+
+model Role {
+  id   String @id @default(uuid())
+  name String
+  Jobs Jobs[]
+}
+
+model Benefit {
+  id     String  @id @default(uuid())
+  name   String
+  Jobs   Jobs?   @relation(fields: [jobsId], references: [id])
+  jobsId String?
+}
+
+model ExperienceLevel {
+  id   String @id @default(uuid())
+  name String
+  Jobs Jobs[]
+}
+
+model Tech {
+  id     String  @id @default(uuid())
+  name   String
+  Jobs   Jobs?   @relation(fields: [jobsId], references: [id])
+  jobsId String?
+}
+
+model JobAlert {
+  id        String @id @default(uuid())
+  frequency String
+  Users     User[]
+}
+
+model User {
+  id                  String     @id @default(uuid())
+  email               String     @unique
+  password            String
+  name                String
+  subscribedJobAlerts JobAlert[]
+}
+
+model Jobs {
+  id                String          @id @default(uuid())
+  title             String
+  description       String
+  company           Company         @relation(fields: [companyId], references: [id])
+  location          Location[]
+  duration          Duration        @relation(fields: [durationId], references: [id])
+  role              Role            @relation(fields: [roleId], references: [id])
+  benefits          Benefit[]
+  experienceLevel   ExperienceLevel @relation(fields: [experienceLevelId], references: [id])
+  tech              Tech[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  companyId         String
+  locationId        String
+  durationId        String
+  roleId            String
+  experienceLevelId String
 }
