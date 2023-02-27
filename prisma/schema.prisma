@@ -11,55 +11,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Example {
-  id          String @id @default(uuid())
-  description String
-  details     String
-}
-
 model Company {
   id          String @id @default(uuid())
   name        String
   description String
-  Jobs        Jobs[]
+  Job         Job[]
 }
 
 model Location {
   id   String @id @default(uuid())
   name String
-  Jobs Jobs[]
+  Job  Job[]
 }
 
 model Duration {
   id   String @id @default(uuid())
   name String
-  Jobs Jobs[]
+  Job  Job[]
 }
 
 model Role {
   id   String @id @default(uuid())
   name String
-  Jobs Jobs[]
+  Job  Job[]
 }
 
 model Benefit {
-  id     String  @id @default(uuid())
-  name   String
-  Jobs   Jobs?   @relation(fields: [jobsId], references: [id])
-  jobsId String?
+  id    String  @id @default(uuid())
+  name  String
+  Job   Job?    @relation(fields: [JobId], references: [id])
+  JobId String?
 }
 
 model ExperienceLevel {
   id   String @id @default(uuid())
   name String
-  Jobs Jobs[]
+  Job  Job[]
 }
 
 model Tech {
-  id     String  @id @default(uuid())
-  name   String
-  Jobs   Jobs?   @relation(fields: [jobsId], references: [id])
-  jobsId String?
+  id    String  @id @default(uuid())
+  name  String
+  Job   Job?    @relation(fields: [JobId], references: [id])
+  JobId String?
 }
 
 model JobAlert {
@@ -76,7 +70,7 @@ model User {
   subscribedJobAlerts JobAlert[]
 }
 
-model Jobs {
+model Job {
   id                String          @id @default(uuid())
   title             String
   description       String
