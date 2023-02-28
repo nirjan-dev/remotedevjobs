@@ -15,6 +15,7 @@ model Company {
   id          String @id @default(uuid())
   name        String
   description String
+  slug        String @unique
   Job         Job[]
 }
 
@@ -22,18 +23,21 @@ model Location {
   id   String @id @default(uuid())
   name String
   Job  Job[]
+  slug String @unique
 }
 
 model Duration {
   id   String @id @default(uuid())
   name String
   Job  Job[]
+  slug String @unique
 }
 
 model Role {
   id   String @id @default(uuid())
   name String
   Job  Job[]
+  slug String @unique
 }
 
 model Benefit {
@@ -41,12 +45,14 @@ model Benefit {
   name  String
   Job   Job?    @relation(fields: [JobId], references: [id])
   JobId String?
+  slug  String  @unique
 }
 
 model ExperienceLevel {
   id   String @id @default(uuid())
   name String
   Job  Job[]
+  slug String @unique
 }
 
 model Tech {
@@ -54,12 +60,14 @@ model Tech {
   name  String
   Job   Job?    @relation(fields: [JobId], references: [id])
   JobId String?
+  slug  String  @unique
 }
 
 model JobAlert {
   id        String @id @default(uuid())
   frequency String
   Users     User[]
+  slug      String @unique
 }
 
 model User {
@@ -88,4 +96,5 @@ model Job {
   durationId        String
   roleId            String
   experienceLevelId String
+  slug              String          @unique
 }

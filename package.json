@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.8.1",
-    "@sidebase/core": "^0.1.4"
+    "@sidebase/core": "^0.1.4",
+    "slug": "^8.2.2"
   }
 }
