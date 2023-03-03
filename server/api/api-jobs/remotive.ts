@@ -5,7 +5,7 @@ import { RemotiveJob } from '~~/server/api/api-jobs/JobsFromAPIs.type'
 import { logger } from '~~/utils/logger'
 
 export default defineEventHandler(async (event: H3Event) => {
-  const data = await (await fetch('https://remotive.io/api/remote-jobs?category=software-dev&limit=5'))
+  const data = await (await fetch('https://remotive.io/api/remote-jobs?category=software-dev&limit=12'))
 
   const responseData: {jobs: RemotiveJob[]} = await data.json()
 
@@ -44,7 +44,7 @@ const createJobFromRemotiveJob = async (job: RemotiveJob, PrismaClient: PrismaCl
     techIds = await createTechFromRemotiveJob(job, PrismaClient)
     benefitIds = await createBenefitsFromRemotiveJob(job, PrismaClient)
   } catch (error: any) {
-    logger.error(`Error creating job from Remotive job: ${JSON.stringify(job.url)}`, { error: error.message, stack: error.stack })
+    logger.error(`Error creating job from Remotive job: ${JSON.stringify(job.url)}`, { error: error.message, stack: error.stack, job })
     return null
   }
 
@@ -77,7 +77,7 @@ const createJobFromRemotiveJob = async (job: RemotiveJob, PrismaClient: PrismaCl
 
     }
   })
-
+  logger.info(`Created job from Remotive API: ${JSON.stringify(job.url)}`, { jobTitle: newJob.title, jobLink: newJob.link })
   return newJob
 }
 
@@ -294,28 +294,30 @@ const createRoleFromRemotiveJob = async (job: RemotiveJob, PrismaClient: PrismaC
 
 const createTechFromRemotiveJob = async (job: RemotiveJob, PrismaClient: PrismaClient) => {
   // get tech from the tags
-  const tech = job.tags
-  const techSlugs = tech.map((tech) => {
-    return slug(tech)
+  const tech = job.tags.map((tag) => {
+    return {
+      name: tag,
+      slug: slug(tag.replace(/#/g, 'sharp '))
+    }
   })
+
   // check if tech exists
   const existingTech = await PrismaClient.tech.findMany({
     where: {
       slug: {
-        in: techSlugs
+        in: tech.map(tech => tech.slug)
       }
     }
   })
 
   // if not, create tech
-  const techToCreate = tech.filter(tech => !existingTech.find(existingTech => existingTech.name === tech))
+  const techToCreate = tech.filter(tech => !existingTech.find(existingTech => existingTech.slug === tech.slug))
 
   const createdTech = await Promise.all(techToCreate.map(async (tech) => {
     return await PrismaClient.tech.create({
       data: {
-        name: tech,
-        slug: slug(tech)
-
+        name: tech.name,
+        slug: tech.slug
       }
     })
   }
