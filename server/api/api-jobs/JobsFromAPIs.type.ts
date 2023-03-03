@@ -18,7 +18,7 @@ export interface RemotiveJob {
 
 export interface jobWithLinkedData extends Omit<Job, 'company_id' | 'location_id' | 'duration_id' | 'experienceLevel_id' | 'role_id'> {
   company: Company;
-  location: Location;
+  locations: Location[];
   duration: Duration;
   experienceLevel: ExperienceLevel;
   role: Role;

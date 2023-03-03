@@ -1,13 +1,9 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  // NOTE: You probably want to change this to another database later on
   provider = "sqlite"
-  // This value is read from the .env file.
   url      = env("DATABASE_URL")
 }
 
@@ -16,85 +12,91 @@ model Company {
   name        String
   description String
   slug        String @unique
-  Job         Job[]
+  logo        String
+  Jobs        Job[]
 }
 
 model Location {
   id   String @id @default(uuid())
   name String
-  Job  Job[]
   slug String @unique
+  Jobs Job[]
 }
 
 model Duration {
   id   String @id @default(uuid())
   name String
-  Job  Job[]
   slug String @unique
+  Jobs Job[]
 }
 
 model Role {
   id   String @id @default(uuid())
   name String
-  Job  Job[]
   slug String @unique
+  Jobs Job[]
 }
 
 model Benefit {
-  id    String  @id @default(uuid())
-  name  String
-  Job   Job?    @relation(fields: [JobId], references: [id])
-  JobId String?
-  slug  String  @unique
+  id   String @id @default(uuid())
+  name String
+  slug String @unique
+  jobs Job[]
 }
 
 model ExperienceLevel {
   id   String @id @default(uuid())
   name String
-  Job  Job[]
   slug String @unique
+  Jobs Job[]
 }
 
 model Tech {
-  id    String  @id @default(uuid())
-  name  String
-  Job   Job?    @relation(fields: [JobId], references: [id])
-  JobId String?
-  slug  String  @unique
+  id   String @id @default(uuid())
+  name String
+  slug String @unique
+  jobs Job[]
 }
 
-model JobAlert {
-  id        String @id @default(uuid())
-  frequency String
-  Users     User[]
-  slug      String @unique
-}
+// model JobAlert {
+//   id        String @id @default(uuid())
+//   frequency String
+//   slug      String @unique
+//   Users     User[] @relation("JobAlertToUser")
+// }
 
-model User {
-  id                  String     @id @default(uuid())
-  email               String     @unique
-  password            String
-  name                String
-  subscribedJobAlerts JobAlert[]
-}
+// model User {
+//   id                  String     @id @default(uuid())
+//   email               String     @unique
+//   password            String
+//   name                String
+//   subscribedJobAlerts JobAlert[] @relation("JobAlertToUser")
+// }
 
 model Job {
-  id                String          @id @default(uuid())
-  title             String
-  description       String
-  company           Company         @relation(fields: [companyId], references: [id])
-  location          Location[]
-  duration          Duration        @relation(fields: [durationId], references: [id])
-  role              Role            @relation(fields: [roleId], references: [id])
-  benefits          Benefit[]
-  experienceLevel   ExperienceLevel @relation(fields: [experienceLevelId], references: [id])
-  tech              Tech[]
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  companyId         String
-  locationId        String
-  durationId        String
-  roleId            String
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  slug        String   @unique
+  link        String   @unique
+  salary      String
+  postedAt    DateTime
+
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String
+
+  Duration   Duration @relation(fields: [durationId], references: [id])
+  durationId String
+
+  Role   Role   @relation(fields: [roleId], references: [id])
+  roleId String
+
+  ExperienceLevel   ExperienceLevel @relation(fields: [experienceLevelId], references: [id])
   experienceLevelId String
-  slug              String          @unique
+
+  locations Location[]
+  benefits  Benefit[]
+  tech      Tech[]
 }
