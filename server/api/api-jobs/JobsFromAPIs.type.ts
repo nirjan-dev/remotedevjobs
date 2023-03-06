@@ -1,4 +1,4 @@
-import { Company, ExperienceLevel, Job, Role, Location } from '@prisma/client'
+import { Company, ExperienceLevel, Job, Role, Location, Benefit, Tech, Duration } from '@prisma/client'
 
 export interface RemotiveJob {
   id: number;
@@ -16,10 +16,59 @@ export interface RemotiveJob {
   company_logo_url: string;
 }
 
-export interface jobWithLinkedData extends Omit<Job, 'company_id' | 'location_id' | 'duration_id' | 'experienceLevel_id' | 'role_id'> {
-  company: Company;
-  locations: Location[];
-  duration: Duration;
-  experienceLevel: ExperienceLevel;
-  role: Role;
+export interface FourDayWeekJob {
+  title_original: string;
+    title: string;
+    description: string;
+    is_remote: boolean;
+    location_original: string;
+    location_country: string;
+    location_continent: string;
+    posted: number;
+    reduced_hours: string;
+    category: string;
+    role: string;
+    filters: {
+      label: string;
+      value: string;
+    }[];
+    company_name: string;
+    hours: number;
+    url: string;
+    slug: string;
+    company_id: number;
+    id_str: number;
+    company: {
+      id_str: number;
+      url: string;
+      name: string;
+      category: string;
+      short_description: string;
+      description: string;
+      slug: string;
+      country: string;
+      employees: number;
+      logo_url: string;
+      company_url: string;
+      reduced_hours: string;
+      four_day_reference_text: string;
+      images: string[];
+      remote_level: string;
+    };
+}
+
+export interface JobFromAPIs extends Omit<Job, 'id' | 'createdAt' | 'updatedAt' | 'companyId' | 'durationId' | 'roleId' | 'experienceLevelId'> {
+  company: Omit<Company, 'id'>;
+
+  locations: Omit<Location, 'id'>[];
+
+  duration: Omit<Duration, 'id'>;
+
+  experienceLevel: Omit<ExperienceLevel, 'id'>;
+
+  role: Omit<Role, 'id'>;
+
+  tech: Omit<Tech, 'id'>[];
+
+  benefits: Omit<Benefit, 'id'>[];
 }
