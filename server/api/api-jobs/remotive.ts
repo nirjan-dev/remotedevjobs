@@ -1,6 +1,6 @@
 import { H3Event } from 'h3'
 import slug from 'slug'
-import { createJobFromAPIJob } from '~~/server/api/api-jobs/apiJobsService'
+import { benefitsParser, createJobFromAPIJob } from '~~/server/api/api-jobs/apiJobsService'
 import { JobFromAPIs, RemotiveJob } from '~~/server/api/api-jobs/JobsFromAPIs.type'
 
 export default defineEventHandler(async (event: H3Event) => {
@@ -167,13 +167,7 @@ const getTechFromTags = (tags: string[]) => tags.map((tag) => {
 const getBenefitsFromDescription = (description: string) => {
   // scrape description for benefits
 
-  const termsToCheck = ['flexible', 'work from home',
-    'work from anywhere', '4 day work week', 'visa sponsorship', 'relocation', 'unlimited pto', 'childcare', 'gym', 'stock options', 'equity', 'pension', 'health insurance', 'dental', 'wellness programs', 'employee discount', 'pet friendly']
-
-  const benefits = termsToCheck.filter(term => description.toLowerCase().includes(term)).map(benefit => ({
-    name: benefit,
-    slug: slug(benefit)
-  }))
+  const benefits = benefitsParser(description)
 
   return benefits
 }

@@ -26,7 +26,7 @@ export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: Prisma
     techIds = await createTechFromAPIJob(job, PrismaClient)
     benefitIds = await createBenefitsFromAPIJob(job, PrismaClient)
   } catch (error: any) {
-    logger.error(`Error creating job from Remotive job: ${JSON.stringify(job.link)}`, { error: error.message, stack: error.stack, job })
+    logger.error(`Error creating job from Remotive job: ${JSON.stringify(job.link)}`, { error: error.message, stack: error.stack, job: { ...job, description: null } })
     return null
   }
 
@@ -251,4 +251,16 @@ const createBenefitsFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaCl
   // return all benefits
 
   return [...existingBenefits, ...createdBenefits].map(benefit => benefit.id)
+}
+
+export const benefitsParser = (text: string) => {
+  const termsToCheck = ['flexible', 'work from home',
+    'work from anywhere', '4 day work week', 'visa sponsorship', 'relocation', 'unlimited pto', 'childcare', 'gym', 'stock options', 'equity', 'pension', 'health insurance', 'dental', 'wellness programs', 'employee discount', 'pet friendly']
+
+  const benefits = termsToCheck.filter(term => text.toLowerCase().includes(term)).map(benefit => ({
+    name: benefit,
+    slug: slug(benefit)
+  }))
+
+  return benefits
 }
