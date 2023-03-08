@@ -1,5 +1,6 @@
 import slug from 'slug'
 import { PrismaClient } from '@prisma/client'
+import DOMPurify from 'isomorphic-dompurify'
 import { JobFromAPIs } from '~~/server/api/api-jobs/JobsFromAPIs.type'
 import { logger } from '~~/utils/logger'
 
@@ -35,7 +36,7 @@ export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: Prisma
   const newJob = await PrismaClient.job.create({
     data: {
       title: job.title,
-      description: job.description,
+      description: DOMPurify.sanitize(job.description),
       link: job.link,
       salary: job.salary,
       postedAt: job.postedAt,
@@ -81,7 +82,7 @@ const createCompanyFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaCli
       name: company.name,
       slug: company.slug,
       logo: company.logo,
-      description: company.description
+      description: DOMPurify.sanitize(company.description)
     }
   })
 

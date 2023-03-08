@@ -1,5 +1,6 @@
 import { H3Event } from 'h3'
 import slug from 'slug'
+import { marked } from 'marked'
 import { FourDayWeekJob, JobFromAPIs } from '~~/server/api/api-jobs/JobsFromAPIs.type'
 import { benefitsParser, createJobFromAPIJob } from '~~/server/api/api-jobs/apiJobsService'
 
@@ -43,13 +44,14 @@ const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
     ...job,
     salary: 'unknown',
     link: job.url,
+    description: marked.parse(job.description),
     postedAt: new Date(job.posted),
     slug: slug(job.title + '-' + job.posted),
     company: {
       name: job.company.name,
       logo: job.company.logo_url,
       slug: slug(job.company.name),
-      description: job.company.description
+      description: marked.parse(job.company.description)
     },
     locations: [{
       name: location,
