@@ -57,6 +57,25 @@ export interface FourDayWeekJob {
     };
 }
 
+export interface RemoteOkJob {
+  slug: string;
+  id: string;
+  epoch: number;
+  date: Date;
+  company: string;
+  company_logo: string;
+  position: string;
+  tags: string[];
+  logo: string;
+  description: string;
+  location: string;
+  salary_min: number;
+  salary_max: number;
+  original?: boolean;
+  url: string;
+  apply_url: string;
+}
+
 export interface JobFromAPIs extends Omit<Job, 'id' | 'createdAt' | 'updatedAt' | 'companyId' | 'durationId' | 'roleId' | 'experienceLevelId'> {
   company: Omit<Company, 'id'>;
 
