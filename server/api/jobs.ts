@@ -11,7 +11,7 @@ export default defineEventHandler(async (event: H3Event) => {
       Duration: true,
       ExperienceLevel: true,
       Role: true,
-      tech: true,
+      tags: true,
       benefits: true
     },
     orderBy: {

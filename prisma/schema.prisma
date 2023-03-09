@@ -51,7 +51,7 @@ model ExperienceLevel {
   Jobs Job[]
 }
 
-model Tech {
+model Tag {
   id   String @id @default(uuid())
   name String
   slug String @unique
@@ -98,5 +98,5 @@ model Job {
 
   locations Location[]
   benefits  Benefit[]
-  tech      Tech[]
+  tags      Tag[]
 }

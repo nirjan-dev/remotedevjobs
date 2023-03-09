@@ -33,7 +33,7 @@ const getApiJobFromRemoteOkJob = (job: RemoteOkJob): JobFromAPIs => {
 
   const role = job.position
 
-  const tech = getTechFromTags(job.tags)
+  const tags = getTagsFromRemoteOkTags(job.tags)
 
   const benefits = getBenefitsFromDescription(job.description)
 
@@ -45,7 +45,8 @@ const getApiJobFromRemoteOkJob = (job: RemoteOkJob): JobFromAPIs => {
     salary: String(job.salary_min),
     link: job.url,
     postedAt: new Date(job.date),
-    slug: slug(job.position + '-' + job.date),
+    slug: slug(job.position + '-' + job.company + '-' + job.id),
+    description: `<p>${job.description}</p>`,
     company: {
       name: job.company,
       logo: job.company_logo,
@@ -68,7 +69,7 @@ const getApiJobFromRemoteOkJob = (job: RemoteOkJob): JobFromAPIs => {
       slug: slug(role)
     },
 
-    tech,
+    tags,
 
     benefits
   }
@@ -107,14 +108,13 @@ const getExperienceLevelFromPositionAndTags = (position: string, tags: string[])
   return experienceLevel
 }
 
-// get tech from the tags
-const getTechFromTags = (tags:string[]) => {
-  const tech = tags.map(tag => ({
+const getTagsFromRemoteOkTags = (remoteOkTags:string[]) => {
+  const tags = remoteOkTags.map(tag => ({
     name: tag,
     slug: slug(tag)
   }))
 
-  return tech
+  return tags
 }
 
 const getBenefitsFromDescription = (description: string) => {

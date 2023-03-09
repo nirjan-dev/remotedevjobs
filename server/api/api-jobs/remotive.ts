@@ -29,7 +29,7 @@ const getAPIJobFromRemotiveJob = (job: RemotiveJob): JobFromAPIs => {
 
   const role = getRoleFromTitle(job.title)
 
-  const tech = getTechFromTags(job.tags)
+  const tags = getTagsFromRemotiveTags(job.tags)
 
   const benefits = getBenefitsFromDescription(job.description)
 
@@ -37,7 +37,7 @@ const getAPIJobFromRemotiveJob = (job: RemotiveJob): JobFromAPIs => {
     ...job,
     link: job.url,
     postedAt: new Date(job.publication_date),
-    slug: slug(job.title + '-' + job.publication_date),
+    slug: slug(job.title + '-' + job.company_name + '-' + job.id),
     company: {
       name: job.company_name,
       logo: job.company_logo_url,
@@ -63,7 +63,7 @@ const getAPIJobFromRemotiveJob = (job: RemotiveJob): JobFromAPIs => {
       slug: slug(role)
     },
 
-    tech,
+    tags,
 
     benefits
   }
@@ -156,8 +156,7 @@ const getRoleFromTitle = (title: string) => {
   return role
 }
 
-// get tech from the tags
-const getTechFromTags = (tags: string[]) => tags.map((tag) => {
+const getTagsFromRemotiveTags = (tags: string[]) => tags.map((tag) => {
   return {
     name: tag,
     slug: slug(tag.replace(/#/g, 'sharp '))

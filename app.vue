@@ -16,7 +16,7 @@
           <th>Experience Level</th>
           <th>Role</th>
           <th>Benefits</th>
-          <th>Tech</th>
+          <th>Tags</th>
           <th>Description</th>
           <th />
         </tr>
@@ -32,7 +32,7 @@
           <td>{{ job.ExperienceLevel.name }}</td>
           <td>{{ job.Role.name }}</td>
           <td>{{ job.benefits.map(benefit => benefit.name).join(", ") }}</td>
-          <td>{{ job.tech.map(tech => tech.name).join(", ") }}</td>
+          <td>{{ job.tags.map(tag => tag.name).join(", ") }}</td>
           <td v-html="job.description" />
         </tr>
       </tbody>

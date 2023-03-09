@@ -1,4 +1,4 @@
-import { Company, ExperienceLevel, Job, Role, Location, Benefit, Tech, Duration } from '@prisma/client'
+import { Company, ExperienceLevel, Job, Role, Location, Benefit, Duration, Tag } from '@prisma/client'
 
 export interface RemotiveJob {
   id: number;
@@ -87,7 +87,7 @@ export interface JobFromAPIs extends Omit<Job, 'id' | 'createdAt' | 'updatedAt' 
 
   role: Omit<Role, 'id'>;
 
-  tech: Omit<Tech, 'id'>[];
+  tags: Omit<Tag, 'id'>[];
 
   benefits: Omit<Benefit, 'id'>[];
 }

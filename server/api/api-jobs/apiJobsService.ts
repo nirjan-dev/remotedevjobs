@@ -8,7 +8,7 @@ export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: Prisma
   // check if job exists with the link
   const existingJob = await PrismaClient.job.findUnique({
     where: {
-      link: job.link
+      slug: job.slug
     }
   })
 
@@ -17,17 +17,17 @@ export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: Prisma
   // if not, create job
 
   // get all the linked data
-  let companyId, durationId, roleId, experienceLevelId, locationIds, techIds, benefitIds
+  let companyId, durationId, roleId, experienceLevelId, locationIds, tagIds, benefitIds
   try {
     companyId = await createCompanyFromAPIJob(job, PrismaClient)
     durationId = await createDurationFromAPIJob(job, PrismaClient)
     roleId = await createRoleFromAPIJob(job, PrismaClient)
     experienceLevelId = await createExperienceLevelAPIJob(job, PrismaClient)
     locationIds = await createLocationsFromAPIJob(job, PrismaClient)
-    techIds = await createTechFromAPIJob(job, PrismaClient)
+    tagIds = await createTagsFromAPIJob(job, PrismaClient)
     benefitIds = await createBenefitsFromAPIJob(job, PrismaClient)
   } catch (error: any) {
-    logger.error(`Error creating job from Remotive job: ${JSON.stringify(job.link)}`, { error: error.message, stack: error.stack, job: { ...job, description: null } })
+    logger.error(`Error creating job from Remotive job: ${JSON.stringify(job.link)}`, { error: error.message, stack: error.stack, jobTitle: job.title, jobLink: job.link })
     return null
   }
 
@@ -45,13 +45,12 @@ export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: Prisma
       durationId,
       roleId,
       experienceLevelId,
-
       locations: {
         connect: locationIds.map(locationId => ({ id: locationId }))
       },
 
-      tech: {
-        connect: techIds.map(techId => ({ id: techId }))
+      tags: {
+        connect: tagIds.map(tagId => ({ id: tagId }))
       },
 
       benefits: {
@@ -103,7 +102,7 @@ const createLocationsFromAPIJob = async (job: JobFromAPIs, PrismaClient:PrismaCl
     })
 
   // if not, create location
-  const locationsToCreate = locations.filter(location => !existingLocations.find(existingLocation => existingLocation.name === location.name))
+  const locationsToCreate = locations.filter(location => !existingLocations.find(existingLocation => existingLocation.slug === location.slug))
 
   const createdLocations = await Promise.all(locationsToCreate.map(async (location) => {
     return await PrismaClient.location.create({
@@ -193,33 +192,30 @@ const createRoleFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaClient
   return createdRole.id
 }
 
-const createTechFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaClient) => {
-  const { tech } = job
+const createTagsFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaClient) => {
+  const { tags } = job
 
-  // check if tech exists
-  const existingTech = await PrismaClient.tech.findMany({
+  const existingTags = await PrismaClient.tag.findMany({
     where: {
       slug: {
-        in: tech.map(tech => tech.slug)
+        in: tags.map(tag => tag.slug)
       }
     }
   })
 
-  // if not, create tech
-  const techToCreate = tech.filter(tech => !existingTech.find(existingTech => existingTech.slug === tech.slug))
+  const tagsToCreate = tags.filter(tag => !existingTags.find(existingTags => existingTags.slug === tag.slug))
 
-  const createdTech = await Promise.all(techToCreate.map(async (tech) => {
-    return await PrismaClient.tech.create({
+  const createdTags = await Promise.all(tagsToCreate.map(async (tag) => {
+    return await PrismaClient.tag.create({
       data: {
-        name: tech.name,
-        slug: tech.slug
+        name: tag.name,
+        slug: tag.slug
       }
     })
   }
   ))
 
-  // return all tech
-  return [...existingTech, ...createdTech].map(tech => tech.id)
+  return [...existingTags, ...createdTags].map(tag => tag.id)
 }
 
 const createBenefitsFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaClient) => {

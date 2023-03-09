@@ -9,7 +9,7 @@ export default defineEventHandler(async (event: H3Event) => {
 
   const responseData: {jobs: FourDayWeekJob[]} = await data.json()
 
-  const latestJobs = responseData.jobs.slice(0, 5)
+  const latestJobs = responseData.jobs.slice(0, 20)
 
   const engineeringJobs = latestJobs.filter(job => job.category === 'Engineering')
 
@@ -34,7 +34,7 @@ const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
 
   const role = job.role
 
-  const tech = getTechFromFilters(job.filters)
+  const tags = getTagsFromFilters(job.filters)
 
   const benefits = getBenefitsFromCompanyDescription(job.company.description)
 
@@ -45,8 +45,9 @@ const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
     salary: 'unknown',
     link: job.url,
     description: marked.parse(job.description),
-    postedAt: new Date(job.posted),
-    slug: slug(job.title + '-' + job.posted),
+    // the date is in seconds after the linux epoch, so we need to multiply by 1000
+    postedAt: new Date(job.posted * 1000),
+    slug: slug(job.title + '-' + job.company_name + '-' + job.id_str),
     company: {
       name: job.company.name,
       logo: job.company.logo_url,
@@ -72,7 +73,7 @@ const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
       slug: slug(role)
     },
 
-    tech,
+    tags,
 
     benefits
   }
@@ -111,14 +112,13 @@ const getExperienceLevelFromTitle = (title: string) => {
   return experienceLevel
 }
 
-// get tech from the tags
-const getTechFromFilters = (filters: {label: string, value: string}[]) => {
-  const tech = filters.map(filter => ({
+const getTagsFromFilters = (filters: {label: string, value: string}[]) => {
+  const tags = filters.map(filter => ({
     name: filter.label,
     slug: slug(filter.label)
   }))
 
-  return tech
+  return tags
 }
 
 const getBenefitsFromCompanyDescription = (description: string) => {
