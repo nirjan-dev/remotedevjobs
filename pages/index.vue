@@ -4,10 +4,41 @@
       Remote Developer Jobs
     </h1>
 
-    <div class="grid md:grid-cols-12 gap-12">
-      <main class="md:col-span-8">
+    <div class="grid  md:gap-12 gap-4 grid-cols-12">
+      <main class="md:col-span-8 col-span-12">
+        <div>
+          <n-select
+            v-model:value="selectedLocations"
+            multiple
+            :options="locationOptions"
+            placeholder="Filter by location"
+            class="mb-4"
+            filterable
+          />
+
+          <n-select
+            v-model:value="selectedTag"
+            placeholder="Filter by tag"
+            class="mb-4"
+            multiple
+            filterable
+
+            :options="tagOptions"
+          />
+
+          <n-select
+            v-model:value="selectedRole"
+            placeholder="Filter by role"
+            class="mb-4"
+            multiple
+            filterable
+
+            :options="roleOptions"
+          />
+        </div>
+
         <ul>
-          <li v-for="job in jobs" :key="job.id" class="mb-8">
+          <li v-for="job in filteredJobs" :key="job.id" class="mb-8">
             <n-card>
               <template #header>
                 <h2 class="text-2xl font-bold">
@@ -24,21 +55,23 @@
               </template>
 
               <div class="my-2">
-                <n-tag v-for="location in job.locations" :key="location.id" round class="mr-2" size="small">
+                <n-tag v-for="location in job.locations" :key="location.id" round class="mr-2 mb-1" size="small">
                   {{ location.name }}
                 </n-tag>
 
-                <n-tag v-if="job.Duration.name" round size="small" class="mr-2">
+                <n-tag v-if="job.Duration.name" round size="small" class="mr-2 mb-1">
                   {{ job.Duration.name }}
                 </n-tag>
 
-                <n-tag v-for="benefit in job.benefits" :key="benefit.id" round size="small">
+                <n-tag v-for="benefit in job.benefits" :key="benefit.id" class="mr-2 mb-1" round size="small">
                   {{ benefit.name }}
                 </n-tag>
               </div>
 
               <n-tag v-if="job.salary" round size="small" type="success">
-                {{ job.salary }}
+                <n-ellipsis style="max-width: 190px">
+                  {{ job.salary }}
+                </n-ellipsis>
               </n-tag>
 
               <template #action>
@@ -62,7 +95,7 @@
           </li>
         </ul>
       </main>
-      <aside class="md:col-span-4">
+      <aside class="md:col-span-4 col-span-12">
         <div class="w-full h-64 bg-gray-400" />
       </aside>
     </div>
@@ -72,6 +105,67 @@
 <script setup lang="ts">
 
 const { data: jobs } = useFetch('/api/jobs')
+const selectedLocations = ref<string[]>([])
+const selectedTag = ref<string[]>([])
+const selectedRole = ref<string[]>([])
+
+const filteredJobs = computed(() => {
+  let filteredJobs = jobs.value
+
+  // Filter by location
+  if (selectedLocations.value.length > 0) {
+    filteredJobs = filteredJobs?.filter((job) => {
+      const jobLocations = job.locations.map(location => location.name)
+
+      return selectedLocations.value.some(location => jobLocations.includes(location))
+    }) ?? []
+  }
+
+  // Filter by tag
+  if (selectedTag.value.length > 0) {
+    filteredJobs = filteredJobs?.filter((job) => {
+      const jobTags = job.tags.map(tag => tag.name)
+
+      return selectedTag.value.some(tag => jobTags.includes(tag))
+    }) ?? []
+  }
+
+  // Filter by role
+  if (selectedRole.value.length > 0) {
+    filteredJobs = filteredJobs?.filter((job) => {
+      const jobRole = job.Role.name
+
+      return selectedRole.value.includes(jobRole)
+    }) ?? []
+  }
+
+  return filteredJobs
+})
+
+const locations = jobs.value?.map(job => job.locations).flat().map(location => location.name).filter(name => name) ?? []
+
+const uniqueLocations = [...new Set(locations)]
+
+const locationOptions = uniqueLocations.map(location => ({
+  label: location,
+  value: location
+}))
+
+const tags = jobs.value?.map(job => job.tags).flat().map(tag => tag.name).filter(tag => tag) ?? []
+
+const uniqueTags = [...new Set(tags)]
+
+const tagOptions = uniqueTags.map(tag => ({
+  label: tag,
+  value: tag
+}))
+
+const roles = jobs.value?.map(job => job.Role.name).filter(role => role) ?? []
+const uniqueRoles = [...new Set(roles)]
+const roleOptions = uniqueRoles.map(role => ({
+  label: role,
+  value: role
+}))
 
 const getFormattedDate = (dateString: Date) => {
   const date = new Date(dateString)
@@ -85,6 +179,7 @@ const getFormattedDate = (dateString: Date) => {
 
   return formattedDate
 }
+
 </script>
 
   <style scoped>
