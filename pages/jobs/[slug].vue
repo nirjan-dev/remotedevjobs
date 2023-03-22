@@ -74,9 +74,8 @@
 
 <script setup lang="ts">
 const { params } = useRoute()
-const { data: job } = useFetch(
+const { data: job } = await useFetch(
   `/api/jobs/${params.slug}`
-
 )
 
 </script>

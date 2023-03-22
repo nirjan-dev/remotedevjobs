@@ -2,7 +2,7 @@ import { H3Event } from 'h3'
 import slug from 'slug'
 import { marked } from 'marked'
 import { FourDayWeekJob, JobFromAPIs } from '~~/server/api/api-jobs/JobsFromAPIs.type'
-import { benefitsParser, createJobFromAPIJob } from '~~/server/api/api-jobs/apiJobsService'
+import { addJobToQueueFromAPIJob, benefitsParser } from '~~/server/api/api-jobs/apiJobsService'
 
 export default defineEventHandler(async (event: H3Event) => {
   const data = await (await fetch('https://4dayweek.io/api'))
@@ -17,13 +17,13 @@ export default defineEventHandler(async (event: H3Event) => {
 
   const jobsFromAPI = engineeringJobs.map(job => getApiJobFromFourDayWeekJob(job))
 
-  const createdJobs = await Promise.all(jobsFromAPI.map(async (job) => {
-    return await createJobFromAPIJob(job, PrismaClient)
+  const jobsAddedToQueue = await Promise.all(jobsFromAPI.map(async (job) => {
+    return await addJobToQueueFromAPIJob(job, PrismaClient)
   }))
 
   return {
-    createdJobs,
-    FourDayWeekJobs: engineeringJobs
+    jobsAddedToQueue,
+    fourdayWeekJobs: jobsFromAPI
   }
 })
 

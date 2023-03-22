@@ -1,7 +1,7 @@
 <template>
   <NConfigProvider>
     <NGlobalStyle />
-
+    <NuxtLoadingIndicator />
     <div class="container px-3 py-6 mx-auto">
       <slot />
     </div>

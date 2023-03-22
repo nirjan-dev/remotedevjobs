@@ -1,7 +1,7 @@
 import { H3Event } from 'h3'
 import slug from 'slug'
 import { JobFromAPIs, RemoteOkJob } from '~~/server/api/api-jobs/JobsFromAPIs.type'
-import { benefitsParser, createJobFromAPIJob } from '~~/server/api/api-jobs/apiJobsService'
+import { addJobToQueueFromAPIJob, benefitsParser } from '~~/server/api/api-jobs/apiJobsService'
 
 export default defineEventHandler(async (event: H3Event) => {
   const data = await (await fetch('https://remoteok.com/api?api=1'))
@@ -16,13 +16,13 @@ export default defineEventHandler(async (event: H3Event) => {
   const PrismaClient = event.context.prisma
 
   const jobsFromAPI = latestJobs.map(job => getApiJobFromRemoteOkJob(job))
-  const createdJobs = await Promise.all(jobsFromAPI.map(async (job) => {
-    return await createJobFromAPIJob(job, PrismaClient)
+  const jobsAddedToQueue = await Promise.all(jobsFromAPI.map(async (job) => {
+    return await addJobToQueueFromAPIJob(job, PrismaClient)
   }))
 
   return {
-    createdJobs,
-    remoteOkJobs: latestJobs
+    jobsAddedToQueue,
+    remoteOkJobs: jobsFromAPI
   }
 })
 

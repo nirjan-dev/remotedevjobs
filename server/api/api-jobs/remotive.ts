@@ -1,6 +1,6 @@
 import { H3Event } from 'h3'
 import slug from 'slug'
-import { benefitsParser, createJobFromAPIJob } from '~~/server/api/api-jobs/apiJobsService'
+import { addJobToQueueFromAPIJob, benefitsParser } from '~~/server/api/api-jobs/apiJobsService'
 import { JobFromAPIs, RemotiveJob } from '~~/server/api/api-jobs/JobsFromAPIs.type'
 
 export default defineEventHandler(async (event: H3Event) => {
@@ -12,12 +12,12 @@ export default defineEventHandler(async (event: H3Event) => {
 
   const jobsFromAPI = responseData.jobs.map(job => getAPIJobFromRemotiveJob(job))
 
-  const createdJobs = await Promise.all(jobsFromAPI.map(async (job) => {
-    return await createJobFromAPIJob(job, PrismaClient)
+  const jobsAddedToQueue = await Promise.all(jobsFromAPI.map(async (job) => {
+    return await addJobToQueueFromAPIJob(job, PrismaClient)
   }))
 
   return {
-    createdJobs,
+    jobsAddedToQueue,
     remotiveJobs: responseData.jobs
   }
 })

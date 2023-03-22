@@ -5,17 +5,6 @@ import { JobFromAPIs } from '~~/server/api/api-jobs/JobsFromAPIs.type'
 import { logger } from '~~/utils/logger'
 
 export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaClient) => {
-  // check if job exists with the link
-  const existingJob = await PrismaClient.job.findUnique({
-    where: {
-      slug: job.slug
-    }
-  })
-
-  if (existingJob) { return existingJob }
-
-  // if not, create job
-
   // get all the linked data
   let companyId, durationId, roleId, experienceLevelId, locationIds, tagIds, benefitIds
   try {
@@ -61,6 +50,25 @@ export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: Prisma
   })
   logger.info(`Created job from Remotive API: ${JSON.stringify(job.link)}`, { jobTitle: newJob.title, jobLink: newJob.link })
   return newJob
+}
+
+export const addJobToQueueFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaClient) => {
+  const existingJob = await PrismaClient.job.findUnique({
+    where: {
+      slug: job.slug
+    }
+  })
+
+  if (existingJob) { return null }
+
+  const newJobQueueItem = await PrismaClient.jobQueue.create({
+    data: {
+      jobDetails: job as any
+    }
+  })
+
+  logger.info(`Added job to queue from Remotive API: ${JSON.stringify(job.link)}`)
+  return newJobQueueItem
 }
 
 const createCompanyFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaClient) => {
