@@ -39,9 +39,15 @@
           Apply
         </n-button>
 
-        <n-button type="info" secondary size="large" @click="$event => useRouter().push('/')">
-          Back to All Jobs
-        </n-button>
+        <button-link
+          type="info"
+          secondary
+          size="large"
+        >
+          <nuxt-link :to="`/`">
+            Back to All Jobs
+          </nuxt-link>
+        </button-link>
       </n-button-group>
     </div>
 
@@ -60,9 +66,15 @@
           Apply
         </n-button>
 
-        <n-button type="info" secondary size="large" @click="$event => useRouter().push('/')">
-          Back to All Jobs
-        </n-button>
+        <button-link
+          type="info"
+          secondary
+          size="large"
+        >
+          <nuxt-link :to="`/`">
+            Back to All Jobs
+          </nuxt-link>
+        </button-link>
       </n-button-group>
     </div>
   </div>
@@ -85,27 +97,27 @@ const { data: job } = await useFetch(
   @apply text-base leading-normal;
 }
 
-.job-description >>> p {
+.job-description ::v-deep(p) {
   @apply mb-4;
 }
 
-.job-description >>> ul {
+.job-description ::v-deep(ul) {
   @apply list-disc list-inside;
 }
 
-.job-description >>> h2 {
+.job-description  ::v-deep(h2), .job-description  ::v-deep(.h2) {
   @apply text-2xl font-bold;
 }
 
-.job-description >>> h3 {
+.job-description ::v-deep(h3), .job-description  ::v-deep(.h3) {
   @apply text-xl font-bold;
 }
 
-.job-description >>> h4 {
+.job-description ::v-deep(h4), .job-description  ::v-deep(.h4) {
   @apply text-lg font-bold;
 }
 
-.job-description >>> h5 {
+.job-description ::v-deep(h5), .job-description  ::v-deep(.h5) {
   @apply text-base font-bold;
 }
 </style>

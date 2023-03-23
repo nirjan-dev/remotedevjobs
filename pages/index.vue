@@ -182,16 +182,15 @@
                   >
                     Apply
                   </n-button>
-                  <n-button
+                  <button-link
                     type="info"
                     secondary
                     size="large"
-                    @click="$event => $router.push({
-                      path: `/jobs/${job.slug}`,
-                    })"
                   >
-                    View Details
-                  </n-button>
+                    <nuxt-link :to="`/jobs/${job.slug}`">
+                      View Details
+                    </nuxt-link>
+                  </button-link>
                 </n-button-group>
               </template>
             </n-card>
@@ -203,6 +202,8 @@
 </template>
 
 <script setup lang="ts">
+
+import { NSelect } from 'naive-ui'
 
 const { data: jobs } = await useFetch('/api/jobs')
 const selectedLocations = ref<string[]>([])
