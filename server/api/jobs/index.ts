@@ -5,17 +5,52 @@ export default defineEventHandler(async (event: H3Event) => {
 
   // send all jobs
   const jobs = await PrismaClient.job.findMany({
-    include: {
-      company: true,
-      locations: true,
-      Duration: true,
-      ExperienceLevel: true,
-      Role: true,
-      tags: true,
-      benefits: true
-    },
     orderBy: {
       postedAt: 'desc'
+    },
+    select: {
+      title: true,
+      salary: true,
+      link: true,
+      postedAt: true,
+      slug: true,
+      id: true,
+      company: {
+        select: {
+          name: true,
+          id: true
+        }
+      },
+      locations: {
+        select: {
+          name: true,
+          id: true
+        }
+      },
+      Duration: {
+        select: {
+          name: true,
+          id: true
+        }
+      },
+      Role: {
+        select: {
+          name: true,
+          id: true
+        }
+      },
+      tags: {
+        select: {
+          name: true,
+          id: true
+        }
+      },
+      benefits: {
+        select: {
+          name: true,
+          id: true
+        }
+      }
     }
   })
 
