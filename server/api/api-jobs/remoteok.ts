@@ -4,7 +4,15 @@ import { JobFromAPIs, RemoteOkJob } from '~~/server/api/api-jobs/JobsFromAPIs.ty
 import { addJobToQueueFromAPIJob, benefitsParser } from '~~/server/api/api-jobs/apiJobsService'
 
 export default defineEventHandler(async (event: H3Event) => {
-  const data = await (await fetch('https://remoteok.com/api?api=1'))
+  let data
+  try {
+    data = await (await fetch('https://remoteok.com/api?api=1'))
+  } catch (error:any) {
+    logger.error(error.message, 'Error fetching remoteok jobs')
+    return {
+      error: error.message
+    }
+  }
 
   const responseData: RemoteOkJob[] = await data.json()
 
@@ -21,8 +29,7 @@ export default defineEventHandler(async (event: H3Event) => {
   }))
 
   return {
-    jobsAddedToQueue,
-    remoteOkJobs: jobsFromAPI
+    jobsAddedToQueue
   }
 })
 

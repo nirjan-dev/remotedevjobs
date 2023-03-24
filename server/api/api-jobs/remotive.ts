@@ -17,8 +17,7 @@ export default defineEventHandler(async (event: H3Event) => {
   }))
 
   return {
-    jobsAddedToQueue,
-    remotiveJobs: responseData.jobs
+    jobsAddedToQueue
   }
 })
 

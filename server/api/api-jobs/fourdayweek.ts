@@ -22,8 +22,7 @@ export default defineEventHandler(async (event: H3Event) => {
   }))
 
   return {
-    jobsAddedToQueue,
-    fourdayWeekJobs: jobsFromAPI
+    jobsAddedToQueue
   }
 })
 
