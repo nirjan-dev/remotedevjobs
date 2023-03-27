@@ -47,6 +47,7 @@
     "@types/marked": "^4.0.8",
     "isomorphic-dompurify": "^1.1.0",
     "marked": "^4.2.12",
+    "nuxt-gtag": "^0.3.0",
     "slug": "^8.2.2",
     "winston": "^3.8.2"
   }
