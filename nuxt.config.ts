@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       swr: true
     },
     '/': {
-      swr: true
+      prerender: true
     }
   },
   gtag: {
