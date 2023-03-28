@@ -210,6 +210,11 @@ const selectedLocations = ref<string[]>([])
 const selectedTag = ref<string[]>([])
 const selectedRole = ref<string[]>([])
 
+definePageMeta({
+  title: 'Jobs',
+  description: 'Find the latest remote jobs in the tech industry'
+})
+
 const filteredJobs = computed(() => {
   let filteredJobs = jobs.value
 

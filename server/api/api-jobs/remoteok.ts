@@ -2,6 +2,7 @@ import { H3Event } from 'h3'
 import slug from 'slug'
 import { JobFromAPIs, RemoteOkJob } from '~~/server/api/api-jobs/JobsFromAPIs.type'
 import { addJobToQueueFromAPIJob, benefitsParser } from '~~/server/api/api-jobs/apiJobsService'
+import { logger } from '~/utils/logger'
 
 export default defineEventHandler(async (event: H3Event) => {
   let data
