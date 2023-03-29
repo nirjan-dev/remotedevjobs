@@ -14,7 +14,7 @@ export default defineEventHandler(async () => {
 
     return responseData
   } catch (error:any) {
-    console.log(error.message, 'Error fetching remoteok jobs', data?.statusText)
+    console.log(error.message, 'Error fetching remoteok jobs', data?.statusText, data, error)
     data?.headers.forEach((value, key) => {
       console.log(key, value)
     })
