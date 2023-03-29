@@ -211,9 +211,9 @@ const selectedLocations = ref<string[]>([])
 const selectedTag = ref<string[]>([])
 const selectedRole = ref<string[]>([])
 
-definePageMeta({
-  title: 'Jobs',
-  description: 'Find the latest remote jobs in the tech industry'
+useServerSeoMeta({
+  title: 'Remote Dev Jobs - Find Remote Developer Jobs - Job Board Site for Developers',
+  description: 'Browse and apply for the latest remote developer jobs on our job board site. Connect with top employers from around the world and find your dream job today. Get hired for your skills and experience and work from anywhere in the world. Start your search now and take the next step in your career as a remote developer.'
 })
 
 const filteredJobs = computed(() => {
