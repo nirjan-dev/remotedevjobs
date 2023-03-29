@@ -11,7 +11,6 @@ export default defineNuxtConfig({
   typescript: {
     shim: false
   },
-  naiveUI: { themeOverrides: { common: { primaryColor: '#ff0000', primaryColorHover: '#8b0000' } } },
   routeRules: {
     '/*': {
       swr: true

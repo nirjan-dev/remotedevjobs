@@ -1,11 +1,10 @@
 <template>
-  <NConfigProvider>
-    <NGlobalStyle />
+  <div>
     <NuxtLoadingIndicator />
     <div class="container px-3 py-6 mx-auto">
       <slot />
     </div>
-  </NConfigProvider>
+  </div>
 </template>
 
 <script setup lang="ts">

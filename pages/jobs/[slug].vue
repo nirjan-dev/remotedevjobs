@@ -35,6 +35,7 @@
           tag="a"
           type="success"
           size="large"
+          class="text-gray-900"
         >
           Apply
         </n-button>
@@ -62,6 +63,7 @@
           tag="a"
           type="success"
           size="large"
+          class="text-gray-900"
         >
           Apply
         </n-button>
@@ -102,7 +104,7 @@ const { data: job } = await useFetch(
 }
 
 .job-description ::v-deep(ul) {
-  @apply list-disc list-inside;
+  @apply list-disc ;
 }
 
 .job-description  ::v-deep(h2), .job-description  ::v-deep(.h2) {

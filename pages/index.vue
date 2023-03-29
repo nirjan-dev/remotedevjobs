@@ -175,10 +175,11 @@
                   <n-button
                     ref="noopener"
                     tag="a"
-                    type="success"
+                    type="primary"
                     target="_blank"
                     :href="job.link"
                     size="large"
+                    class="text-gray-900"
                   >
                     Apply
                   </n-button>
@@ -203,7 +204,7 @@
 
 <script setup lang="ts">
 
-import { NSelect } from 'naive-ui'
+// import { NSelect, NCard, NButton, NTag, NButtonGroup } from 'naive-ui'
 
 const { data: jobs } = await useFetch('/api/jobs')
 const selectedLocations = ref<string[]>([])
