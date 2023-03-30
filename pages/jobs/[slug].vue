@@ -88,9 +88,20 @@
 
 <script setup lang="ts">
 const { params } = useRoute()
+
 const { data: job } = await useFetch(
   `/api/jobs/${params.slug}`
 )
+
+const title = `${job?.value?.title} - Remote Dev Jobs}`
+const description = `Apply for ${job?.value?.title} at ${job?.value?.company.name} with Remote Dev Jobs`
+
+useServerSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description
+})
 
 </script>
 

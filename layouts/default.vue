@@ -3,6 +3,9 @@
     <NuxtLoadingIndicator />
     <div class="container px-3 py-6 mx-auto">
       <slot />
+      <footer class="text-center">
+        <p>Built with 💜 by <a class="text-blue-700 underline" href="https://nirjan.dev">nirjan.dev</a> </p>
+      </footer>
     </div>
   </div>
 </template>
@@ -27,6 +30,12 @@ useHead({
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "gezr3qvknq");`
+    }
+  ],
+  meta: [
+    {
+      name: 'og:image',
+      content: '/assets/images/og.jpg'
     }
   ]
 })

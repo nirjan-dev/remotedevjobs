@@ -1,108 +1,21 @@
 <template>
   <div>
-    <h1 class="text-6xl font-black text-center py-6 mb-12">
-      Remote Developer Jobs
+    <h1 class="text-5xl font-black text-center py-6 mb-8">
+      Remote Dev Jobs
     </h1>
 
-    <!-- <div class="grid  md:gap-12 gap-4 grid-cols-12">
-      <main class="md:col-span-8 col-span-12">
-        <div>
-          <n-select
-            v-model:value="selectedLocations"
-            multiple
-            :options="locationOptions"
-            placeholder="Filter by location"
-            class="mb-4"
-            filterable
-          />
-
-          <n-select
-            v-model:value="selectedTag"
-            placeholder="Filter by tag"
-            class="mb-4"
-            multiple
-            filterable
-
-            :options="tagOptions"
-          />
-
-          <n-select
-            v-model:value="selectedRole"
-            placeholder="Filter by role"
-            class="mb-4"
-            multiple
-            filterable
-
-            :options="roleOptions"
-          />
-        </div>
-
-        <ul>
-          <li v-for="job in filteredJobs" :key="job.id" class="mb-8">
-            <n-card>
-              <template #header>
-                <h2 class="text-2xl font-bold">
-                  {{ job.title }}
-                </h2>
-              </template>
-
-              <span class="text-lg">{{ job.company.name }}</span>
-
-              <template
-                #header-extra
-              >
-                <span>{{ getFormattedDate(job.postedAt) }}</span>
-              </template>
-
-              <div class="my-2">
-                <n-tag v-for="location in job.locations" :key="location.id" round class="mr-2 mb-1" size="small">
-                  {{ location.name }}
-                </n-tag>
-
-                <n-tag v-if="job.Duration.name" round size="small" class="mr-2 mb-1">
-                  {{ job.Duration.name }}
-                </n-tag>
-
-                <n-tag v-for="benefit in job.benefits" :key="benefit.id" class="mr-2 mb-1" round size="small">
-                  {{ benefit.name }}
-                </n-tag>
-              </div>
-
-              <n-tag v-if="job.salary" round size="small" type="success">
-                <n-ellipsis style="max-width: 190px">
-                  {{ job.salary }}
-                </n-ellipsis>
-              </n-tag>
-
-              <template #action>
-                <n-button-group>
-                  <n-button
-                    ref="noopener"
-                    tag="a"
-                    type="success"
-                    target="_blank"
-                    :href="job.link"
-                    size="large"
-                  >
-                    Apply
-                  </n-button>
-                  <n-button type="info" secondary size="large" @click="$event => useRouter().push(`/jobs/${job.slug}`)">
-                    View Details
-                  </n-button>
-                </n-button-group>
-              </template>
-            </n-card>
-          </li>
-        </ul>
-      </main>
-      <aside class="md:col-span-4 col-span-12">
-        <div class="w-full h-64 bg-gray-400" />
-      </aside>
-    </div> -->
+    <div class="max-w-2xl mx-auto mb-12 text-base">
+      <p class="mb-6">
+        We'll help you find the best remote full stack developer jobs, junior developer jobs, remote programming jobs, remote front-end developer jobs, and more,  no matter where you are in the world.
+      </p> <p>We offer an easy-to-use platform that allows you to filter job listings by location, experience level, and job role. Plus, with our customizable newsletter (coming soon), you'll be the first to know about new job opportunities that match your career goals.</p>
+    </div>
 
     <div class="grid grid-cols-12">
       <main class=" col-span-12 md:col-start-4 md:col-end-10">
-        <div>
+        <div class="mb-12">
+          <h2 class="text-xl mb-4 font-bold">
+            Filter Remote Dev Jobs
+          </h2>
           <n-select
             v-model:value="selectedLocations"
             multiple
@@ -133,11 +46,14 @@
           />
         </div>
 
+        <h2 class="text-xl mb-4 font-bold">
+          Latest Remote Developer Jobs
+        </h2>
         <ul>
           <li v-for="job in filteredJobs" :key="job.id" class="mb-8">
             <n-card>
               <template #header>
-                <h2 class="text-2xl font-bold">
+                <h2 class="text-2xl font-black">
                   {{ job.title }}
                 </h2>
               </template>
@@ -212,8 +128,10 @@ const selectedTag = ref<string[]>([])
 const selectedRole = ref<string[]>([])
 
 useServerSeoMeta({
-  title: 'Remote Dev Jobs - Find Remote Developer Jobs - Job Board Site for Developers',
-  description: 'Browse and apply for the latest remote developer jobs on our job board site. Connect with top employers from around the world and find your dream job today. Get hired for your skills and experience and work from anywhere in the world. Start your search now and take the next step in your career as a remote developer.'
+  title: 'Remote Dev Jobs - Job Board to find software engineer, programming and full stack developer jobs',
+  description: 'Remote Dev Jobs offers top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.',
+  ogTitle: 'Remote Dev Jobs - Job Board to find software engineer, programming and full stack developer jobs',
+  ogDescription: 'Remote Dev Jobs offers top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.'
 })
 
 const filteredJobs = computed(() => {
