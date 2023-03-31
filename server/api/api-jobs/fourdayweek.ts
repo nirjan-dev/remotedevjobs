@@ -41,7 +41,7 @@ const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
 
   return {
     ...job,
-    salary: 'unknown',
+    salary: 'unknown salary',
     link: job.url,
     description: marked.parse(job.description),
     // the date is in seconds after the linux epoch, so we need to multiply by 1000
