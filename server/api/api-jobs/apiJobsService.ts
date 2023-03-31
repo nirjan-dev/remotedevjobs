@@ -53,17 +53,28 @@ export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: Prisma
 }
 
 export const addJobToQueueFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaClient) => {
-  const existingJob = await PrismaClient.job.findUnique({
+  const existingJobSearch = PrismaClient.job.findUnique({
     where: {
       slug: job.slug
     }
   })
 
+  const existingQueueSearch = PrismaClient.jobQueue.findUnique({
+    where: {
+      link: job.link
+    }
+  })
+
+  const [existingJob, existingQueueItem] = await Promise.all([existingJobSearch, existingQueueSearch])
+
+  if (existingJob || existingQueueItem) { return null }
+
   if (existingJob) { return null }
 
   const newJobQueueItem = await PrismaClient.jobQueue.create({
     data: {
-      jobDetails: job as any
+      jobDetails: job as any,
+      link: job.link
     }
   })
 
