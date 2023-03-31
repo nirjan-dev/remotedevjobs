@@ -44,6 +44,16 @@
 
             :options="roleOptions"
           />
+
+          <n-select
+            v-model:value="selectedExperienceLevel"
+            placeholder="Filter by experience level"
+            class="mb-4"
+            multiple
+            filterable
+
+            :options="experienceLevelOptions"
+          />
         </div>
 
         <h2 class="text-xl mb-4 font-bold">
@@ -126,6 +136,7 @@ const { data: jobs } = await useFetch('/api/jobs')
 const selectedLocations = ref<string[]>([])
 const selectedTag = ref<string[]>([])
 const selectedRole = ref<string[]>([])
+const selectedExperienceLevel = ref<string[]>([])
 
 useServerSeoMeta({
   title: 'Remote Dev Jobs - Job Board to find software engineer, programming and full stack developer jobs',
@@ -164,6 +175,15 @@ const filteredJobs = computed(() => {
     }) ?? []
   }
 
+  // Filter by experience level
+  if (selectedExperienceLevel.value.length > 0) {
+    filteredJobs = filteredJobs?.filter((job) => {
+      const jobExperienceLevel = job.ExperienceLevel.name
+
+      return selectedExperienceLevel.value.includes(jobExperienceLevel)
+    }) ?? []
+  }
+
   return filteredJobs
 })
 
@@ -190,6 +210,15 @@ const uniqueRoles = [...new Set(roles)]
 const roleOptions = uniqueRoles.map(role => ({
   label: role,
   value: role
+}))
+
+const experienceLevels = jobs.value?.map(job => job.ExperienceLevel.name).filter(experienceLevel => experienceLevel) ?? []
+
+const uniqueExperienceLevels = [...new Set(experienceLevels)]
+
+const experienceLevelOptions = uniqueExperienceLevels.map(experienceLevel => ({
+  label: experienceLevel,
+  value: experienceLevel
 }))
 
 const getFormattedDate = (dateString: Date) => {

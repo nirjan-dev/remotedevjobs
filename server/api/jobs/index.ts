@@ -50,6 +50,12 @@ export default defineEventHandler(async (event: H3Event) => {
           name: true,
           id: true
         }
+      },
+      ExperienceLevel: {
+        select: {
+          name: true,
+          id: true
+        }
       }
     }
   })
