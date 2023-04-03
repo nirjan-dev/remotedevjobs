@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     version: '0.0.1'
   },
-  modules: ['@nuxtjs/tailwindcss', 'nuxt-svgo', '@huntersofbook/naive-ui-nuxt', 'nuxt-gtag'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-svgo', '@huntersofbook/naive-ui-nuxt', 'nuxt-gtag', 'nuxt-simple-sitemap'],
   extends: ['@sidebase/core'],
   typescript: {
     shim: false
@@ -21,6 +21,9 @@ export default defineNuxtConfig({
   },
   gtag: {
     id: 'G-QY0M8DZKCN'
+  },
+  sitemap: {
+    siteUrl: 'https://remotedevjobs.net'
   }
 
 })
