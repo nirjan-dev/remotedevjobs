@@ -11,7 +11,7 @@ export default cachedEventHandler(async (event:H3Event) => {
   })
 
   return jobs.map(job => ({
-    loc: `https://remotedevjobs.net/${job.slug}`,
+    loc: `https://remotedevjobs.net/jobs/${job.slug}`,
     lastmod: job.updatedAt
   }))
 }, {
