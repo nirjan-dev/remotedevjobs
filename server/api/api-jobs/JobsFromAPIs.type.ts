@@ -91,3 +91,19 @@ export interface JobFromAPIs extends Omit<Job, 'id' | 'createdAt' | 'updatedAt' 
 
   benefits: Omit<Benefit, 'id'>[];
 }
+
+export interface HimalayasJob {
+  title: string;
+  excerpt: string;
+  image: string;
+  companyName: string;
+  companyLogo: string;
+  locationRestrictions: any[];
+  timezoneRestrictions: number[];
+  categories: string[];
+  description: string;
+  pubDate: number;
+  expiryDate: number;
+  applicationLink: string;
+  guid: string;
+}
