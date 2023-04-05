@@ -3,14 +3,39 @@
     <NuxtLoadingIndicator />
     <div class="container px-3 py-6 mx-auto">
       <slot />
-      <footer class="text-center">
+      <div class="fixed bottom-0 bg-gray-700 text-white w-full left-0 py-4 px-6 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
+        <div class="mx-auto max-w-xl flex items-center justify-center ">
+          <p
+            class="mr-2 font-bold text-base md:text-lg
+          "
+          >
+            Get weekly remote job posts in your inbox
+          </p>
+          <n-button type="primary" :round="true" class="bg-green-600" @click="showModal = true">
+            Subscribe
+          </n-button>
+        </div>
+      </div>
+
+      <footer class="text-center mb-20">
         <p>Built with 💜 by <a class="text-blue-700 underline" href="https://nirjan.dev">nirjan.dev</a> </p>
       </footer>
+
+      <n-modal v-model:show="showModal" class="max-w-xl" preset="card" size="medium">
+        <template #header>
+          <h2 class="text-2xl font-bold">
+            Subscribe to the weekly job posts
+          </h2>
+        </template>
+
+        <newsletter-signup form-id="5018608" />
+      </n-modal>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const showModal = ref(false)
 useHead({
   script: [
     {

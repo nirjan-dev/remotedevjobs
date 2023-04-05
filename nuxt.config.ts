@@ -4,7 +4,8 @@ setAbsoluteSqliteDatabaseUrlForPrisma()
 
 export default defineNuxtConfig({
   runtimeConfig: {
-    version: '0.0.1'
+    version: '0.0.1',
+    convertkit_api_key: ''
   },
   modules: ['@nuxtjs/tailwindcss', 'nuxt-svgo', '@huntersofbook/naive-ui-nuxt', 'nuxt-gtag', 'nuxt-simple-sitemap'],
   extends: ['@sidebase/core'],
