@@ -4,7 +4,7 @@
     <div class="container px-3 py-6 mx-auto">
       <slot />
       <div class="fixed bottom-0 bg-gray-700 text-white w-full left-0 py-4 px-6 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
-        <div class="mx-auto max-w-xl flex items-center justify-center ">
+        <div class="mx-auto max-w-xl w-full flex items-center flex-wrap justify-center ">
           <p
             class="mr-2 font-bold text-base md:text-lg
           "

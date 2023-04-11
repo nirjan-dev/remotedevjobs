@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="text-5xl font-black text-center py-6 mb-8">
-      Remote Dev Jobs
+    <h1 class="text-4xl font-black text-center py-6 mb-8">
+      Find the perfect Remote Developer Job for you
     </h1>
 
     <div class="max-w-2xl mx-auto mb-12 text-base">
