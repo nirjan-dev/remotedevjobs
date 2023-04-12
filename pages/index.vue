@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h1 class="text-4xl font-black text-center py-6 mb-8">
+    <page-title>
       Find the perfect Remote Developer Job for you
-    </h1>
+    </page-title>
 
-    <div class="max-w-2xl mx-auto mb-12 text-base">
+    <page-description>
       <p class="mb-6">
         We'll help you find the best remote full stack developer jobs, junior developer jobs, remote programming jobs, remote front-end developer jobs, and more,  no matter where you are in the world.
       </p> <p>We offer an easy-to-use platform that allows you to filter job listings by location, experience level, and job role. Plus, with our customizable newsletter (coming soon), you'll be the first to know about new job opportunities that match your career goals.</p>
-    </div>
+    </page-description>
 
     <div class="grid grid-cols-12">
       <main class=" col-span-12 md:col-start-4 md:col-end-10">
