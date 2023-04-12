@@ -57,7 +57,8 @@ export default defineEventHandler(async (event: H3Event) => {
           id: true
         }
       }
-    }
+    },
+    take: 50
   })
 
   return jobs
