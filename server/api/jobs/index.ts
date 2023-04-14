@@ -2,6 +2,13 @@ import { H3Event } from 'h3'
 
 export default defineEventHandler(async (event: H3Event) => {
   const PrismaClient = event.context.prisma
+  const query = getQuery(event)
+
+  const page = Number(query.page) || 1
+  const limit = Number(query.limit) || 10
+  const jobsPerPage = limit
+
+  console.log('page', page, 'limit', limit, 'jobsPerPage', jobsPerPage)
 
   // send all jobs
   const jobs = await PrismaClient.job.findMany({
@@ -58,7 +65,8 @@ export default defineEventHandler(async (event: H3Event) => {
         }
       }
     },
-    take: 50
+    take: jobsPerPage,
+    skip: (page - 1) * jobsPerPage
   })
 
   return jobs

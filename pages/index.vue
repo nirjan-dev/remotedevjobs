@@ -22,11 +22,21 @@
         <h2 class="text-xl mb-4 font-bold">
           Latest Remote Developer Jobs
         </h2>
-        <ul>
+        <p v-if="pending && !error">
+          <job-skeleton :number="jobsPerPage" />
+        </p>
+
+        <ul v-if="!pending && !error">
           <li v-for="job in filteredJobs" :key="job.id" class="mb-8">
             <job-list-item :job="job" />
           </li>
         </ul>
+
+        <p v-if="error">
+          Error loading job posts
+        </p>
+
+        <n-pagination :page="page" class="mt-6 mb-6" :page-count="100" @update-page="changePage" />
       </main>
     </div>
   </div>
@@ -35,8 +45,13 @@
 <script setup lang="ts">
 
 // import { NSelect, NCard, NButton, NTag, NButtonGroup } from 'naive-ui'
+const route = useRoute()
+const router = useRouter()
 
-const { data: jobs } = await useFetch('/api/jobs')
+const page = ref(Number(route.query.page) || 1)
+const jobsPerPage = 15
+
+const { data: jobs, refresh, pending, error } = await useFetch(() => `/api/jobs?page=${page.value}&limit=${jobsPerPage}`)
 const filteredJobs = ref(jobs.value)
 
 useServerSeoMeta({
@@ -48,6 +63,17 @@ useServerSeoMeta({
 
 const updateFilteredJobs = (newFilteredJobs: any[]) => {
   filteredJobs.value = newFilteredJobs
+}
+
+const changePage = (newPage: number) => {
+  page.value = newPage
+
+  refresh()
+
+  window?.scrollTo(0, 0)
+
+  filteredJobs.value = jobs.value
+  router.push({ query: { page: newPage } })
 }
 
 </script>
