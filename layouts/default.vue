@@ -4,12 +4,12 @@
     <div class="container px-3 py-6 mx-auto">
       <slot />
       <div class="fixed bottom-0 bg-gray-700 text-white w-full left-0 py-4 px-6 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
-        <div class="mx-auto max-w-xl w-full flex items-center flex-wrap justify-center ">
+        <div class="mx-auto max-w-xl w-full flex items-center flex-wrap justify-center gap-2">
           <p
-            class="mr-2 font-bold text-base md:text-lg
+            class="mr-2  font-bold text-base md:text-lg
           "
           >
-            Get weekly remote job posts in your inbox
+            Get weekly job alerts in your inbox
           </p>
           <n-button type="primary" :round="true" class="bg-green-600" @click="showModal = true">
             Subscribe
@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <footer class="text-center mb-20">
+      <footer class="text-center mb-24">
         <p>Built with 💜 by <a class="text-blue-700 underline" href="https://nirjan.dev">nirjan.dev</a> </p>
       </footer>
 
