@@ -17,7 +17,7 @@ export default defineEventHandler(async (event: H3Event) => {
   }))
 
   return {
-    jobsAddedToQueue
+    jobsAddedToQueue: jobsAddedToQueue.filter(job => job !== null)
   }
 })
 
