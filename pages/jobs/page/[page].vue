@@ -4,11 +4,11 @@
       Find the perfect Remote Developer Job for you
     </page-title>
 
-    <page-description>
+    <!-- <page-description>
       <p class="mb-6">
         We'll help you find the best remote full stack developer jobs, junior developer jobs, remote programming jobs, remote front-end developer jobs, and more,  no matter where you are in the world.
       </p> <p>We offer an easy-to-use platform that allows you to filter job listings by location, experience level, and job role. Plus, with our customizable newsletter (coming soon), you'll be the first to know about new job opportunities that match your career goals.</p>
-    </page-description>
+    </page-description> -->
 
     <div class="grid grid-cols-12">
       <main class=" col-span-12 md:col-start-4 md:col-end-10">
@@ -20,7 +20,7 @@
         </div>
 
         <h2 class="text-xl mb-4 font-bold">
-          Latest Remote Developer Jobs
+          All Remote Developer Jobs
         </h2>
         <p v-if="pending && !error">
           <job-skeleton :number="jobsPerPage" />
