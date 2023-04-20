@@ -8,10 +8,8 @@ export default defineEventHandler(async (event: H3Event) => {
   const limit = Number(query.limit) || 10
   const jobsPerPage = limit
 
-  console.log('page', page, 'limit', limit, 'jobsPerPage', jobsPerPage)
-
   // send all jobs
-  const jobs = await PrismaClient.job.findMany({
+  const [jobs, count] = await Promise.all([PrismaClient.job.findMany({
     orderBy: {
       postedAt: 'desc'
     },
@@ -67,7 +65,9 @@ export default defineEventHandler(async (event: H3Event) => {
     },
     take: jobsPerPage,
     skip: (page - 1) * jobsPerPage
-  })
+  }),
 
-  return jobs
+  PrismaClient.job.count()])
+
+  return { jobs, count }
 })
