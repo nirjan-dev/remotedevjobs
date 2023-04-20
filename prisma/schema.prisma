@@ -99,6 +99,8 @@ model Job {
   locations Location[]
   benefits  Benefit[]
   tags      Tag[]
+
+  @@index([postedAt, companyId, durationId, roleId, experienceLevelId])
 }
 
 model JobQueue {

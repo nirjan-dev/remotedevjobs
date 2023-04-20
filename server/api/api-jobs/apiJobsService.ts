@@ -21,34 +21,40 @@ export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: Prisma
   }
 
   // create job
+  let newJob
+  try {
+    newJob = await PrismaClient.job.create({
+      data: {
+        title: job.title,
+        description: DOMPurify.sanitize(job.description),
+        link: job.link,
+        salary: job.salary,
+        postedAt: job.postedAt,
+        slug: job.slug,
+        companyId,
+        durationId,
+        roleId,
+        experienceLevelId,
+        locations: {
+          connect: locationIds.map(locationId => ({ id: locationId }))
+        },
 
-  const newJob = await PrismaClient.job.create({
-    data: {
-      title: job.title,
-      description: DOMPurify.sanitize(job.description),
-      link: job.link,
-      salary: job.salary,
-      postedAt: job.postedAt,
-      slug: job.slug,
-      companyId,
-      durationId,
-      roleId,
-      experienceLevelId,
-      locations: {
-        connect: locationIds.map(locationId => ({ id: locationId }))
-      },
+        tags: {
+          connect: tagIds.map(tagId => ({ id: tagId }))
+        },
 
-      tags: {
-        connect: tagIds.map(tagId => ({ id: tagId }))
-      },
+        benefits: {
+          connect: benefitIds.map(benefitId => ({ id: benefitId }))
+        }
 
-      benefits: {
-        connect: benefitIds.map(benefitId => ({ id: benefitId }))
       }
+    })
+    logger.info(`Created job from Remotive API: ${JSON.stringify(job.link)}`, { jobTitle: newJob.title, jobLink: newJob.link })
+  } catch (error: any) {
+    logger.error(`Error creating job from Remotive job: ${JSON.stringify(job.link)}`, { error: error.message, stack: error.stack, jobTitle: job.title, jobLink: job.link })
+    throw error
+  }
 
-    }
-  })
-  logger.info(`Created job from Remotive API: ${JSON.stringify(job.link)}`, { jobTitle: newJob.title, jobLink: newJob.link })
   return newJob
 }
 

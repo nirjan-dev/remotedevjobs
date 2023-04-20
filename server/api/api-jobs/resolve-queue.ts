@@ -33,6 +33,10 @@ export default defineEventHandler(async (event: H3Event) => {
     logger.info('Created job from queue item', { jobTitle: job.title, jobLink: job.link })
   } catch (error:any) {
     logger.error(error, 'Error creating job from queue item', { jobTitle: job.title, jobLink: job.link })
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Error resolving queue' + error.message
+    })
   }
 
   return {
