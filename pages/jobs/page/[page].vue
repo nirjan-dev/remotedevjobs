@@ -44,7 +44,7 @@
           </template>
 
           <template #next>
-            <NuxtLink :to="`/jobs/page/${page + 1}`">
+            <NuxtLink v-if="page < pageCount" :to="`/jobs/page/${page + 1}`">
               Next
             </NuxtLink>
           </template>

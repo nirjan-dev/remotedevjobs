@@ -12,19 +12,16 @@ export default defineNuxtConfig({
   typescript: {
     shim: false
   },
-  routeRules: {
-    '/*': {
-      swr: true
-    },
-    '/': {
-      prerender: true
-    }
-  },
   gtag: {
     id: 'G-QY0M8DZKCN'
   },
   sitemap: {
     siteUrl: 'https://remotedevjobs.net'
+  },
+  nitro: {
+    prerender: {
+      crawlLinks: true
+    }
   }
 
 })
