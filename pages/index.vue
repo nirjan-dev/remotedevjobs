@@ -15,7 +15,7 @@
         <h2 class="text-xl mb-4 font-bold flex justify-between flex-wrap">
           Latest Remote Developer Jobs
 
-          <nuxt-link to="/jobs/page/1" class="text-blue-500">
+          <nuxt-link to="/jobs" class="text-blue-500">
             View all {{ count }} jobs
           </nuxt-link>
         </h2>
@@ -33,7 +33,7 @@
           Error loading job posts
         </p>
 
-        <nuxt-link to="/jobs/page/1" class="text-blue-500 text-lg underline mb-6 inline-block">
+        <nuxt-link to="/jobs" class="text-blue-500 text-lg underline mb-6 inline-block">
           Browse and filter through all {{ count }} jobs
         </nuxt-link>
       </main>

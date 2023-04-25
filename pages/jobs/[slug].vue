@@ -45,7 +45,7 @@
           secondary
           size="large"
         >
-          <nuxt-link :to="`/jobs/page/1`">
+          <nuxt-link :to="`/jobs`">
             Back to All Jobs
           </nuxt-link>
         </button-link>
@@ -73,7 +73,7 @@
           secondary
           size="large"
         >
-          <nuxt-link :to="`/jobs/page/1`">
+          <nuxt-link :to="`/jobs`">
             Back to All Jobs
           </nuxt-link>
         </button-link>

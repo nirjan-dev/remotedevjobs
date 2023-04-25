@@ -5,10 +5,10 @@
     </page-title>
 
     <!-- <page-description>
-      <p class="mb-6">
-        We'll help you find the best remote full stack developer jobs, junior developer jobs, remote programming jobs, remote front-end developer jobs, and more,  no matter where you are in the world.
-      </p> <p>We offer an easy-to-use platform that allows you to filter job listings by location, experience level, and job role. Plus, with our customizable newsletter (coming soon), you'll be the first to know about new job opportunities that match your career goals.</p>
-    </page-description> -->
+        <p class="mb-6">
+          We'll help you find the best remote full stack developer jobs, junior developer jobs, remote programming jobs, remote front-end developer jobs, and more,  no matter where you are in the world.
+        </p> <p>We offer an easy-to-use platform that allows you to filter job listings by location, experience level, and job role. Plus, with our customizable newsletter (coming soon), you'll be the first to know about new job opportunities that match your career goals.</p>
+      </page-description> -->
 
     <div class="grid grid-cols-12">
       <main class=" col-span-12 md:col-start-4 md:col-end-10">
@@ -36,8 +36,8 @@
           Error loading job posts
         </p>
 
-        <n-pagination :page="page" class="mt-6 mb-6" :page-count="pageCount" simple>
-          <template #prev>
+        <n-pagination :page="page" class="mt-6 mb-6" :page-count="pageCount" @update-page="changePage">
+          <!-- <template #prev>
             <NuxtLink :to="`/jobs/page/${page - 1}`">
               Prev
             </NuxtLink>
@@ -47,7 +47,7 @@
             <NuxtLink v-if="page < pageCount" :to="`/jobs/page/${page + 1}`">
               Next
             </NuxtLink>
-          </template>
+          </template> -->
         </n-pagination>
       </main>
     </div>
@@ -58,14 +58,15 @@
 
 // import { NSelect, NCard, NButton, NTag, NButtonGroup } from 'naive-ui'
 const route = useRoute()
+const router = useRouter()
 
 const page = ref(Number(route.params.page) || 1)
 const jobsPerPage = 50
 
-const { data, pending, error } = await useFetch(() => `/api/jobs?page=${page.value}&limit=${jobsPerPage}`)
+const { data, pending, error, refresh } = await useFetch(() => `/api/jobs?page=${page.value}&limit=${jobsPerPage}`)
 
 const pageCount = Math.ceil((data.value?.count ?? 1) / jobsPerPage)
-const jobs = ref(data.value?.jobs ?? [])
+const jobs = computed(() => data.value?.jobs ?? [])
 const filteredJobs = ref(jobs.value)
 
 useServerSeoMeta({
@@ -79,17 +80,21 @@ const updateFilteredJobs = (newFilteredJobs: any[]) => {
   filteredJobs.value = newFilteredJobs
 }
 
-// const changePage = (newPage: number) => {
-//   page.value = newPage
+const changePage = async (newPage: number) => {
+  page.value = newPage
+  router.push({ query: { page: newPage } })
 
-//   refresh()
+  if (typeof window !== 'undefined') {
+    window.scrollTo(0, 0)
+  }
 
-//   filteredJobs.value = jobs.value
-//   router.push({ query: { page: newPage } })
-// }
+  await refresh()
+
+  filteredJobs.value = jobs.value
+}
 
 </script>
 
-    <style scoped>
+      <style scoped>
 
-    </style>
+      </style>
