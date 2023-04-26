@@ -16,7 +16,7 @@
           <h2 class="text-xl mb-4 font-bold">
             Filter Remote Dev Jobs
           </h2>
-          <job-filters v-if="jobs" :jobs="jobs" @on-filter="updateFilteredJobs" />
+          <job-filters v-if="jobs" :jobs="jobs" @on-filter="updateJobFilters" />
         </div>
 
         <h2 class="text-xl mb-4 font-bold">
@@ -27,13 +27,17 @@
         </p>
 
         <ul v-if="!pending && !error">
-          <li v-for="job in filteredJobs" :key="job.id" class="mb-8">
+          <li v-for="job in jobs" :key="job.id" class="mb-8">
             <job-list-item :job="job" />
           </li>
         </ul>
 
         <p v-if="error">
           Error loading job posts
+        </p>
+
+        <p v-if="!error && !pending && jobs.length === 0">
+          No Jobs Found
         </p>
 
         <n-pagination :page="page" class="mt-6 mb-6" :page-count="pageCount" @update-page="changePage">
@@ -56,18 +60,17 @@
 
 <script setup lang="ts">
 
-// import { NSelect, NCard, NButton, NTag, NButtonGroup } from 'naive-ui'
 const route = useRoute()
 const router = useRouter()
 
-const page = ref(Number(route.params.page) || 1)
+const page = ref(Number(route.query.page) || 1)
 const jobsPerPage = 50
 
-const { data, pending, error, refresh } = await useFetch(() => `/api/jobs?page=${page.value}&limit=${jobsPerPage}`)
+const filters = computed(() => route.query || {})
+const { data, pending, error } = await useFetch(() => `/api/jobs?page=${page.value}&limit=${jobsPerPage}&locations=${filters.value.locations}&tags=${filters.value.tags}&roles=${filters.value.roles}&experienceLevels=${filters.value.experienceLevels}`)
 
-const pageCount = Math.ceil((data.value?.count ?? 1) / jobsPerPage)
+const pageCount = computed(() => Math.ceil((data.value?.count ?? 1) / jobsPerPage))
 const jobs = computed(() => data.value?.jobs ?? [])
-const filteredJobs = ref(jobs.value)
 
 useServerSeoMeta({
   title: 'Remote Dev Jobs - Job Board to find software engineer, programming and full stack developer jobs',
@@ -76,21 +79,27 @@ useServerSeoMeta({
   ogDescription: 'Remote Dev Jobs offers top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.'
 })
 
-const updateFilteredJobs = (newFilteredJobs: any[]) => {
-  filteredJobs.value = newFilteredJobs
+const updateJobFilters = async (updatedFilters: {
+  locations? : string
+  tags? : string
+  roles? : string
+  experienceLevels? : string
+}) => {
+  // add filters to query
+  await router.push({
+    query: {
+      ...updatedFilters
+    }
+  })
 }
 
 const changePage = async (newPage: number) => {
-  page.value = newPage
-  router.push({ query: { page: newPage } })
-
   if (typeof window !== 'undefined') {
     window.scrollTo(0, 0)
   }
 
-  await refresh()
-
-  filteredJobs.value = jobs.value
+  page.value = newPage
+  await router.push({ query: { page: newPage } })
 }
 
 </script>

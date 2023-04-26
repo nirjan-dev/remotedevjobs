@@ -87,47 +87,77 @@ const experienceLevelOptions = uniqueExperienceLevels.map(experienceLevel => ({
 }))
 
 const updateFilteredJobs = () => {
-  let filteredJobs = props.jobs
+  // let filteredJobs = props.jobs
 
-  // Filter by location
+  // // Filter by location
+  // if (selectedLocations.value.length > 0) {
+  //   filteredJobs = filteredJobs?.filter((job) => {
+  //     const jobLocations = job.locations.map(location => location.name)
+
+  //     return selectedLocations.value.some(location => jobLocations.includes(location))
+  //   }) ?? []
+  // }
+
+  // // Filter by tag
+  // if (selectedTag.value.length > 0) {
+  //   filteredJobs = filteredJobs?.filter((job) => {
+  //     const jobTags = job.tags.map(tag => tag.name)
+
+  //     return selectedTag.value.some(tag => jobTags.includes(tag))
+  //   }) ?? []
+  // }
+
+  // // Filter by role
+  // if (selectedRole.value.length > 0) {
+  //   filteredJobs = filteredJobs?.filter((job) => {
+  //     const jobRole = job.Role.name
+
+  //     return selectedRole.value.includes(jobRole)
+  //   }) ?? []
+  // }
+
+  // // Filter by experience level
+  // if (selectedExperienceLevel.value.length > 0) {
+  //   filteredJobs = filteredJobs?.filter((job) => {
+  //     const jobExperienceLevel = job.ExperienceLevel.name
+
+  //     return selectedExperienceLevel.value.includes(jobExperienceLevel)
+  //   }) ?? []
+  // }
+
+  let filters = {}
+
   if (selectedLocations.value.length > 0) {
-    filteredJobs = filteredJobs?.filter((job) => {
-      const jobLocations = job.locations.map(location => location.name)
-
-      return selectedLocations.value.some(location => jobLocations.includes(location))
-    }) ?? []
+    filters = {
+      ...filters,
+      locations: selectedLocations.value.join(',')
+    }
   }
 
-  // Filter by tag
   if (selectedTag.value.length > 0) {
-    filteredJobs = filteredJobs?.filter((job) => {
-      const jobTags = job.tags.map(tag => tag.name)
-
-      return selectedTag.value.some(tag => jobTags.includes(tag))
-    }) ?? []
+    filters = {
+      ...filters,
+      tags: selectedTag.value.join(',')
+    }
   }
 
-  // Filter by role
   if (selectedRole.value.length > 0) {
-    filteredJobs = filteredJobs?.filter((job) => {
-      const jobRole = job.Role.name
-
-      return selectedRole.value.includes(jobRole)
-    }) ?? []
+    filters = {
+      ...filters,
+      roles: selectedRole.value.join(',')
+    }
   }
 
-  // Filter by experience level
   if (selectedExperienceLevel.value.length > 0) {
-    filteredJobs = filteredJobs?.filter((job) => {
-      const jobExperienceLevel = job.ExperienceLevel.name
-
-      return selectedExperienceLevel.value.includes(jobExperienceLevel)
-    }) ?? []
+    filters = {
+      ...filters,
+      experienceLevels: selectedExperienceLevel.value.join(',')
+    }
   }
 
-  emit('on-filter', filteredJobs)
+  emit('on-filter', filters)
 
-  return filteredJobs
+  return filters
 }
 
 watch([selectedLocations, selectedTag, selectedRole, selectedExperienceLevel], () => {

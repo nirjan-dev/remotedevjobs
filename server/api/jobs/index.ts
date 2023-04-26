@@ -8,6 +8,21 @@ export default defineEventHandler(async (event: H3Event) => {
   const limit = Number(query.limit) || 10
   const jobsPerPage = limit
 
+  // filters
+  const locationsFilter = query.locations === 'undefined' ? undefined : query.locations?.toString().split(',') || []
+  const rolesFilter = query.roles === 'undefined' ? undefined : query.roles?.toString().split(',') || []
+
+  const experienceLevelsFilter = query.experienceLevels === 'undefined' ? undefined : query.experienceLevels?.toString().split(',') || []
+
+  const tagsFilter = query.tags === 'undefined' ? undefined : query.tags?.toString().split(',') || []
+
+  console.log({
+    locationsFilter,
+    rolesFilter,
+    experienceLevelsFilter,
+    tagsFilter
+  })
+
   // send all jobs
   const [jobs, count] = await Promise.all([PrismaClient.job.findMany({
     orderBy: {
@@ -63,11 +78,72 @@ export default defineEventHandler(async (event: H3Event) => {
         }
       }
     },
+    where: {
+      locations: {
+        some: {
+          name: {
+            in: locationsFilter
+          }
+        }
+      },
+      Role: {
+        is: {
+          name: {
+            in: rolesFilter
+          }
+        }
+      },
+      ExperienceLevel: {
+        is: {
+          name: {
+            in: experienceLevelsFilter
+          }
+        }
+      },
+      tags: {
+        some: {
+          name: {
+            in: tagsFilter
+          }
+        }
+      }
+    },
     take: jobsPerPage,
     skip: (page - 1) * jobsPerPage
   }),
 
-  PrismaClient.job.count()])
-
+  PrismaClient.job.count({
+    where: {
+      locations: {
+        some: {
+          name: {
+            in: locationsFilter
+          }
+        }
+      },
+      Role: {
+        is: {
+          name: {
+            in: rolesFilter
+          }
+        }
+      },
+      ExperienceLevel: {
+        is: {
+          name: {
+            in: experienceLevelsFilter
+          }
+        }
+      },
+      tags: {
+        some: {
+          name: {
+            in: tagsFilter
+          }
+        }
+      }
+    }
+  })])
+  console.log({ count })
   return { jobs, count }
 })
