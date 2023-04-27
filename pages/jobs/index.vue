@@ -16,7 +16,7 @@
           <h2 class="text-xl mb-4 font-bold">
             Filter Remote Dev Jobs
           </h2>
-          <job-filters v-if="jobs" :jobs="jobs" @on-filter="updateJobFilters" />
+          <job-filters v-if="jobs" :default-values="defaultFilterValues" :jobs="jobs" @on-filter="updateJobFilters" />
         </div>
 
         <h2 class="text-xl mb-4 font-bold">
@@ -67,6 +67,13 @@ const page = ref(Number(route.query.page) || 1)
 const jobsPerPage = 50
 
 const filters = computed(() => route.query || {})
+const defaultFilterValues = computed(() => ({
+  locations: (filters.value.locations as string)?.split(',') ?? [],
+  tags: (filters.value.tags as string)?.split(',') ?? [],
+  roles: (filters.value.roles as string)?.split(',') ?? [],
+  experienceLevels: (filters.value.experienceLevels as string)?.split(',') ?? []
+}))
+
 const { data, pending, error } = await useFetch(() => `/api/jobs?page=${page.value}&limit=${jobsPerPage}&locations=${filters.value.locations}&tags=${filters.value.tags}&roles=${filters.value.roles}&experienceLevels=${filters.value.experienceLevels}`)
 
 const pageCount = computed(() => Math.ceil((data.value?.count ?? 1) / jobsPerPage))
@@ -99,7 +106,7 @@ const changePage = async (newPage: number) => {
   }
 
   page.value = newPage
-  await router.push({ query: { page: newPage } })
+  await router.push({ query: { ...filters.value, page: newPage } })
 }
 
 </script>
