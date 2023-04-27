@@ -10,10 +10,10 @@
 
 <style scoped>
 .button-link ::v-deep(.n-button__content a) {
-    @apply h-full w-full inline-flex px-4 py-4;
+    @apply h-full w-full inline-flex px-4 py-4 text-inherit no-underline;
 }
 
 .button-link {
-    @apply px-0 py-0;
+    @apply px-0 py-2;
 }
 </style>

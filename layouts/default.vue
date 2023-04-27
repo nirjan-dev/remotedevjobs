@@ -6,15 +6,15 @@
     <div class="container px-3 py-6 mx-auto">
       <slot />
       <div class="fixed bottom-0 bg-gray-700 text-white w-full left-0 py-4 px-6 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
-        <div class="mx-auto max-w-xl w-full flex items-center flex-wrap justify-center gap-2">
+        <div class="mx-auto max-w-xl w-full flex  flex-wrap items-center justify-center gap-2">
           <p
             class="mr-2  font-bold text-base md:text-lg
           "
           >
             Get weekly job alerts in your inbox
           </p>
-          <n-button type="primary" :round="true" class="bg-green-600" @click="showModal = true">
-            Subscribe
+          <n-button type="warning" :round="true" @click="showModal = true">
+            <span class="font-bold text-lg">Subscribe</span>
           </n-button>
         </div>
       </div>
@@ -38,6 +38,7 @@
 
 <script setup lang="ts">
 import { darkTheme } from 'naive-ui'
+
 const showModal = ref(false)
 
 useHead({
@@ -70,6 +71,12 @@ useHead({
 })
 </script>
 
-<style scoped>
+<style>
+ul {
+  @apply list-none pl-0;
+}
 
+a {
+  @apply text-blue-700 underline;
+}
 </style>

@@ -9,12 +9,12 @@ export default defineEventHandler(async (event: H3Event) => {
   const jobsPerPage = limit
 
   // filters
-  const locationsFilter = query.locations === 'undefined' ? undefined : query.locations?.toString().split(',') || []
-  const rolesFilter = query.roles === 'undefined' ? undefined : query.roles?.toString().split(',') || []
+  const locationsFilter = query.locations === 'undefined' ? undefined : query.locations?.toString().split(',') || undefined
+  const rolesFilter = query.roles === 'undefined' ? undefined : query.roles?.toString().split(',') || undefined
 
-  const experienceLevelsFilter = query.experienceLevels === 'undefined' ? undefined : query.experienceLevels?.toString().split(',') || []
+  const experienceLevelsFilter = query.experienceLevels === 'undefined' ? undefined : query.experienceLevels?.toString().split(',') || undefined
 
-  const tagsFilter = query.tags === 'undefined' ? undefined : query.tags?.toString().split(',') || []
+  const tagsFilter = query.tags === 'undefined' ? undefined : query.tags?.toString().split(',') || undefined
 
   console.log({
     locationsFilter,

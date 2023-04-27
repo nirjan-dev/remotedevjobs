@@ -43,7 +43,6 @@
           target="_blank"
           :href="job.link"
           size="large"
-          class="text-gray-900"
         >
           Apply
         </n-button>

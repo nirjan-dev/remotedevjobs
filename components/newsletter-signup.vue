@@ -22,9 +22,9 @@
         />
       </n-form-item>
       <n-form-item class="col-span-12">
-        <button class="w-full px-2 py-2 rounded-full  text-white  bg-green-600 font-bold">
+        <n-button type="success" class="w-full px-2 py-2 rounded-full font-bold">
           {{ isLoading ? 'Subscribing...' : 'Subscribe' }}
-        </button>
+        </n-button>
       </n-form-item>
     </n-form>
 
