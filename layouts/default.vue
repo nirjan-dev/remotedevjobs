@@ -1,6 +1,8 @@
 <template>
-  <div>
+  <NConfigProvider :theme="darkTheme">
+    <NGlobalStyle />
     <NuxtLoadingIndicator />
+    <nav-bar />
     <div class="container px-3 py-6 mx-auto">
       <slot />
       <div class="fixed bottom-0 bg-gray-700 text-white w-full left-0 py-4 px-6 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
@@ -31,11 +33,13 @@
         <newsletter-signup form-id="5018608" />
       </n-modal>
     </div>
-  </div>
+  </NConfigProvider>
 </template>
 
 <script setup lang="ts">
+import { darkTheme } from 'naive-ui'
 const showModal = ref(false)
+
 useHead({
   script: [
     {
