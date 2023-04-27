@@ -5,8 +5,8 @@
     <nav-bar />
     <div class="container px-3 py-6 mx-auto">
       <slot />
-      <div class="fixed bottom-0 bg-gray-700 text-white w-full left-0 py-4 px-6 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
-        <div class="mx-auto max-w-xl w-full flex  flex-wrap items-center justify-center gap-2">
+      <div class="fixed bottom-0 w-full bg-gray-700 text-white   left-0 py-4 px-6 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
+        <div class="mx-auto  w-full flex  flex-wrap items-center justify-center gap-2">
           <p
             class="mr-2  font-bold text-base md:text-lg
           "
@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <footer class="text-center mb-24">
+      <footer class="text-center mb-36 md:mb-24">
         <p>Built with 💜 by <a class="text-blue-700 underline" href="https://nirjan.dev">nirjan.dev</a> </p>
       </footer>
 
@@ -78,5 +78,9 @@ ul {
 
 a {
   @apply text-blue-700 underline;
+}
+
+*, *::before, *::after {
+  @apply box-border;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="job" class="py-6">
-    <h1 class="text-6xl">
+    <h1 class="text-2xl md:text-6xl">
       {{ job?.title }}
     </h1>
 
@@ -16,7 +16,7 @@
         <n-tag v-if="job.Duration.name" round size="small" class="mr-2">
           {{ job.Duration.name }}
         </n-tag>
-        <n-tag v-for="benefit in job.benefits" :key="benefit.id" round size="small">
+        <n-tag v-for="benefit in job.benefits" :key="benefit.id" class="mr-2" round size="small">
           {{ benefit.name }}
         </n-tag>
       </div>
@@ -52,7 +52,7 @@
       </n-button-group>
     </div>
 
-    <div v-if="job.description" class="job-description py-8 max-w-2xl" v-html="job.description" />
+    <div v-if="job.description" class="job-description  py-8 max-w-2xl" v-html="job.description" />
 
     <div class="my-4">
       <n-button-group>
@@ -107,7 +107,7 @@ useServerSeoMeta({
 
 <style  scoped>
 .job-description {
-  @apply text-base leading-normal;
+  @apply text-base leading-normal px-4;
 }
 
 .job-description ::v-deep(p) {
