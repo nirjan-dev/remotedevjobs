@@ -5,16 +5,15 @@
     <nav-bar />
     <div class="container px-3 py-6 mx-auto">
       <slot />
-      <div class="fixed bottom-0 w-full bg-gray-700 text-white   left-0 py-4 px-6 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
-        <div class="mx-auto  w-full flex  flex-wrap items-center justify-center gap-2">
+      <div class="fixed bottom-0 left-0 w-full px-6 py-4 text-white bg-gray-700 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
+        <div class="flex flex-wrap items-center justify-center w-full gap-2 mx-auto">
           <p
-            class="mr-2  font-bold text-base md:text-lg
-          "
+            class="mr-2 text-base font-bold md:text-lg "
           >
             Get weekly job alerts in your inbox
           </p>
           <n-button type="warning" :round="true" @click="showModal = true">
-            <span class="font-bold text-lg">Subscribe</span>
+            <span class="text-lg font-bold">Subscribe</span>
           </n-button>
         </div>
       </div>
@@ -66,6 +65,13 @@ useHead({
     {
       name: 'og:image',
       content: '/assets/images/og.jpg'
+    }
+  ],
+  link: [
+    {
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
     }
   ]
 })
