@@ -1,13 +1,13 @@
 <template>
   <div>
     <n-select
+      v-if="!props.disableLocationFilter"
       v-model:value="selectedLocations"
       multiple
       :options="locationOptions"
       placeholder="Filter by location"
       class="mb-4"
       filterable
-      :remote="true"
       :loading="locationOptionsLoading"
     />
 
@@ -18,7 +18,6 @@
       multiple
       filterable
       :options="tagOptions"
-      :remote="true"
       :loading="tagOptionsLoading"
     />
 
@@ -29,7 +28,6 @@
       multiple
       filterable
       :options="roleOptions"
-      :remote="true"
       :loading="roleOptionsLoading"
     />
 
@@ -54,7 +52,8 @@ const props = defineProps<{
     tags?: string[],
     roles?: string[],
     experienceLevels?: string[]
-  }
+  },
+  disableLocationFilter?: boolean,
 }>()
 const selectedLocations = ref<string[]>(props.defaultValues?.locations ?? [])
 const selectedTag = ref<string[]>(props.defaultValues?.tags ?? [])

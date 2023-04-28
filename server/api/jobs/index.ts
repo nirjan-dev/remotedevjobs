@@ -16,11 +16,14 @@ export default defineEventHandler(async (event: H3Event) => {
 
   const tagsFilter = query.tags === 'undefined' ? undefined : query.tags?.toString().split(',') || undefined
 
+  const benefitsFilter = query.benefits === 'undefined' ? undefined : query.benefits?.toString().split(',') || undefined
+
   console.log({
     locationsFilter,
     rolesFilter,
     experienceLevelsFilter,
-    tagsFilter
+    tagsFilter,
+    benefitsFilter
   })
 
   // send all jobs
@@ -106,6 +109,13 @@ export default defineEventHandler(async (event: H3Event) => {
             in: tagsFilter
           }
         }
+      },
+      benefits: {
+        some: {
+          name: {
+            in: benefitsFilter
+          }
+        }
       }
     },
     take: jobsPerPage,
@@ -139,6 +149,13 @@ export default defineEventHandler(async (event: H3Event) => {
         some: {
           name: {
             in: tagsFilter
+          }
+        }
+      },
+      benefits: {
+        some: {
+          name: {
+            in: benefitsFilter
           }
         }
       }

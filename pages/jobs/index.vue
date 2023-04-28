@@ -1,25 +1,25 @@
 <template>
   <div>
     <page-title>
-      Find the perfect Remote Developer Job for you
+      Browse and Filter through all our remote developer job posts
     </page-title>
 
-    <!-- <page-description>
-        <p class="mb-6">
-          We'll help you find the best remote full stack developer jobs, junior developer jobs, remote programming jobs, remote front-end developer jobs, and more,  no matter where you are in the world.
-        </p> <p>We offer an easy-to-use platform that allows you to filter job listings by location, experience level, and job role. Plus, with our customizable newsletter (coming soon), you'll be the first to know about new job opportunities that match your career goals.</p>
-      </page-description> -->
+    <page-description>
+      <p class="mb-6">
+        Explore hundreds of recent job posts across various industries and experience levels on our job board. Filter by location, tag, role, and experience level to find only the types of jobs you want.
+      </p> <p>Stay up-to-date with the latest job openings by subscribing to our newsletter and receiving weekly job alerts straight to your inbox. Start your journey towards your dream job today!</p>
+    </page-description>
 
     <div class="grid grid-cols-12">
-      <main class=" col-span-12 md:col-start-4 md:col-end-10">
+      <main class="col-span-12 md:col-start-4 md:col-end-10">
         <div class="mb-12">
-          <h2 class="text-xl mb-4 font-bold">
+          <h2 class="mb-4 text-xl font-bold">
             Filter Remote Dev Jobs
           </h2>
           <job-filters v-if="jobs" :default-values="defaultFilterValues" :jobs="jobs" @on-filter="updateJobFilters" />
         </div>
 
-        <h2 class="text-xl mb-4 font-bold">
+        <h2 class="mb-4 text-xl font-bold">
           All Remote Developer Jobs
         </h2>
         <p v-if="pending && !error">
@@ -80,8 +80,8 @@ const pageCount = computed(() => Math.ceil((data.value?.count ?? 1) / jobsPerPag
 const jobs = computed(() => data.value?.jobs ?? [])
 
 useServerSeoMeta({
-  title: 'Remote Dev Jobs - Job Board to find software engineer, programming and full stack developer jobs',
-  description: 'Remote Dev Jobs offers top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.',
+  title: 'Remote Dev Jobs - Job Board to find tech jobs, programming and full stack developer jobs',
+  description: 'Explore top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.',
   ogTitle: 'Remote Dev Jobs - Job Board to find software engineer, programming and full stack developer jobs',
   ogDescription: 'Remote Dev Jobs offers top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.'
 })
