@@ -29,15 +29,20 @@ export default defineEventHandler(async (event: H3Event) => {
 const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
   const duration = getDurationFromReducedHoursAndOriginalTitle(job.reduced_hours, job.title_original)
 
-  const experienceLevel = getExperienceLevelFromTitle(job.title)
+  let experienceLevel, role, tags, benefits, location
 
-  const role = job.role
+  try {
+    experienceLevel = getExperienceLevelFromTitle(job.title)
+    role = job.role
 
-  const tags = getTagsFromFilters(job.filters)
+    tags = getTagsFromFilters(job.filters)
 
-  const benefits = getBenefitsFromCompanyDescription(job.company.description)
+    benefits = getBenefitsFromCompanyDescription(job.company.description ?? job.company.short_description)
 
-  const location = getLocationFromLocationFields(job.location_continent, job.location_country)
+    location = getLocationFromLocationFields(job.location_continent, job.location_country)
+  } catch (error: any) {
+    throw new Error(`Error parsing job from 4dayweek.io: ${job.url} ${error.message} ${error.stack}}`)
+  }
 
   return {
     ...job,
@@ -51,7 +56,7 @@ const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
       name: job.company.name,
       logo: job.company.logo_url,
       slug: slug(job.company.name),
-      description: marked.parse(job.company.description)
+      description: marked.parse(job.company.description ?? job.company.short_description)
     },
     locations: [{
       name: location,
