@@ -1,84 +1,78 @@
 <template>
-  <div v-if="job" class="py-6">
-    <h1 class="text-2xl md:text-6xl">
-      {{ job?.title }}
-    </h1>
-
-    <p class="my-4 text-lg">
-      {{ job.company.name }}
-    </p>
-
-    <div class="my-2">
-      <div class="mb-4">
-        <n-tag v-for="location in job.locations" :key="location.id" round class="mr-2" size="small">
-          {{ location.name }}
-        </n-tag>
-        <n-tag v-if="job.Duration.name" round size="small" class="mr-2">
-          {{ job.Duration.name }}
-        </n-tag>
-        <n-tag v-for="benefit in job.benefits" :key="benefit.id" class="mr-2" round size="small">
-          {{ benefit.name }}
+  <div v-if="job" class="grid grid-cols-12 py-6">
+    <main class="col-span-12 md:col-start-4 md:col-end-10">
+      <h1 class="text-2xl md:text-6xl">
+        {{ job?.title }}
+      </h1>
+      <p class="my-4 text-lg">
+        {{ job.company.name }}
+      </p>
+      <div class="my-2">
+        <div class="mb-4">
+          <n-tag v-for="location in job.locations" :key="location.id" round class="mr-2" size="small">
+            {{ location.name }}
+          </n-tag>
+          <n-tag v-if="job.Duration.name" round size="small" class="mr-2">
+            {{ job.Duration.name }}
+          </n-tag>
+          <n-tag v-for="benefit in job.benefits" :key="benefit.id" class="mr-2" round size="small">
+            {{ benefit.name }}
+          </n-tag>
+        </div>
+        <n-tag v-if="job.salary" round size="small" type="success">
+          {{ job.salary }}
         </n-tag>
       </div>
-
-      <n-tag v-if="job.salary" round size="small" type="success">
-        {{ job.salary }}
-      </n-tag>
-    </div>
-
-    <div class="my-4">
-      <n-button-group>
-        <n-button
-          ref="noopener"
-          target="_blank"
-          :href="job.link"
-          tag="a"
-          type="success"
-          size="large"
-          class="text-gray-900"
-        >
-          Apply
-        </n-button>
-
-        <button-link
-          type="info"
-          secondary
-          size="large"
-        >
-          <nuxt-link :to="`/jobs`">
-            Back to All Jobs
-          </nuxt-link>
-        </button-link>
-      </n-button-group>
-    </div>
-
-    <div v-if="job.description" class="max-w-2xl py-8 job-description" v-html="job.description" />
-
-    <div class="my-4">
-      <n-button-group>
-        <n-button
-          ref="noopener"
-          target="_blank"
-          :href="job.link"
-          tag="a"
-          type="success"
-          size="large"
-          class="text-gray-900"
-        >
-          Apply
-        </n-button>
-
-        <button-link
-          type="info"
-          secondary
-          size="large"
-        >
-          <nuxt-link :to="`/jobs`">
-            Back to All Jobs
-          </nuxt-link>
-        </button-link>
-      </n-button-group>
-    </div>
+      <div class="my-4">
+        <n-button-group>
+          <n-button
+            ref="noopener"
+            target="_blank"
+            :href="job.link"
+            tag="a"
+            type="success"
+            size="large"
+            class="text-gray-900"
+          >
+            Apply
+          </n-button>
+          <button-link
+            type="info"
+            secondary
+            size="large"
+          >
+            <nuxt-link :to="`/jobs`">
+              Back to All Jobs
+            </nuxt-link>
+          </button-link>
+        </n-button-group>
+      </div>
+      <div v-if="job.description" class="max-w-2xl py-8 job-description" v-html="job.description" />
+      <div class="my-4">
+        <n-button-group>
+          <n-button
+            ref="noopener"
+            target="_blank"
+            :href="job.link"
+            tag="a"
+            type="success"
+            size="large"
+            class="text-gray-900"
+          >
+            Apply
+          </n-button>
+          <button-link
+            type="info"
+            secondary
+            size="large"
+          >
+            <nuxt-link :to="`/jobs`">
+              Back to All Jobs
+            </nuxt-link>
+          </button-link>
+        </n-button-group>
+      </div>
+    </main>
   </div>
 
   <div v-else>

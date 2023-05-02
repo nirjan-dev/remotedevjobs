@@ -1,34 +1,51 @@
 <template>
-  <n-card>
+  <n-card :bordered="false">
     <template #header>
       <h2 class="text-2xl font-black">
         {{ job.title }}
       </h2>
     </template>
 
-    <span class="text-lg">{{ job.company.name }}</span>
+    <span class="text-lg font-bold">{{ job.company.name }}</span>
 
     <template
       #header-extra
     >
-      <span>{{ getFormattedDate(job.postedAt) }}</span>
+      <span class="text-xs">{{ getFormattedDate(job.postedAt) }}</span>
     </template>
 
-    <div class="my-2">
-      <n-tag v-for="location in job.locations" :key="location.id" round class="mr-2 mb-1" size="small">
+    <div class="my-2 opacity-70">
+      <n-tag v-for="location in job.locations.slice(0,5)" :key="location.id" round class="mb-1 mr-2" size="small">
         {{ location.name }}
       </n-tag>
 
-      <n-tag v-if="job.Duration.name" round size="small" class="mr-2 mb-1">
+      <n-tooltip v-if="job.locations.length > 5" placement="bottom" trigger="click">
+        <template #trigger>
+          <n-tag round class="mb-1 mr-2 cursor-pointer" size="small">
+            +{{ job.locations.length - 5 }} locations
+          </n-tag>
+        </template>
+
+        <div class="flex flex-wrap max-w-xs">
+          <n-tag v-for="location in job.locations.slice(5)" :key="location.id" round class="mb-1 mr-2" size="small">
+            {{ location.name }}
+          </n-tag>
+        </div>
+      </n-tooltip>
+
+      <n-tag v-if="job.Duration.name" round size="small" class="mb-1 mr-2">
         {{ job.Duration.name }}
       </n-tag>
 
-      <n-tag v-for="benefit in job.benefits" :key="benefit.id" class="mr-2 mb-1" round size="small">
+      <n-tag v-for="benefit in job.benefits" :key="benefit.id" class="mb-1 mr-2" round size="small">
         {{ benefit.name }}
       </n-tag>
     </div>
 
-    <n-tag v-if="job.salary" round size="small" type="success">
+    <n-tag v-if="job.salary" round size="small" :bordered="false" type="success">
+      <template #icon>
+        <n-icon :component="AttachMoneyFilled" />
+      </template>
       <n-ellipsis style="max-width: 190px">
         {{ job.salary }}
       </n-ellipsis>
@@ -61,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-
+import { AttachMoneyFilled } from '@vicons/material'
 defineProps<{
   job: {
     title: string

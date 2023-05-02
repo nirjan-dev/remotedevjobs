@@ -22,6 +22,8 @@
     "@nuxtjs/tailwindcss": "^6.2.0",
     "@testing-library/vue": "^6.6.1",
     "@types/slug": "^5.0.3",
+    "@vicons/ionicons5": "^0.12.0",
+    "@vicons/material": "^0.12.0",
     "@vitejs/plugin-vue": "^3.2.0",
     "@vitest/coverage-c8": "^0.26.0",
     "@vitest/ui": "^0.26.1",
