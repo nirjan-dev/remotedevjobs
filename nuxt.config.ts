@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     version: '0.0.1',
     convertkit_api_key: ''
   },
-  modules: ['@nuxtjs/tailwindcss', 'nuxt-svgo', '@huntersofbook/naive-ui-nuxt', 'nuxt-gtag', 'nuxt-simple-sitemap'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-svgo', '@huntersofbook/naive-ui-nuxt', 'nuxt-gtag', 'nuxt-simple-sitemap', 'nuxt-schema-org'],
   extends: ['@sidebase/core'],
   typescript: {
     shim: false
@@ -22,6 +22,9 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true
     }
+  },
+  schemaOrg: {
+    host: 'https://remotedevjobs.net'
   }
 
 })

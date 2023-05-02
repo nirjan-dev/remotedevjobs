@@ -4,7 +4,7 @@
       {{ job?.title }}
     </h1>
 
-    <p class="text-lg my-4">
+    <p class="my-4 text-lg">
       {{ job.company.name }}
     </p>
 
@@ -52,7 +52,7 @@
       </n-button-group>
     </div>
 
-    <div v-if="job.description" class="job-description  py-8 max-w-2xl" v-html="job.description" />
+    <div v-if="job.description" class="max-w-2xl py-8 job-description" v-html="job.description" />
 
     <div class="my-4">
       <n-button-group>
@@ -93,7 +93,7 @@ const { data: job } = await useFetch(
   `/api/jobs/${params.slug}`
 )
 
-const title = `${job?.value?.title} - Remote Dev Jobs}`
+const title = `${job?.value?.title} - Remote Dev Jobs`
 const description = `Apply for ${job?.value?.title} at ${job?.value?.company.name} with Remote Dev Jobs`
 
 useServerSeoMeta({
@@ -102,6 +102,18 @@ useServerSeoMeta({
   ogTitle: title,
   ogDescription: description
 })
+
+useSchemaOrg([
+  defineJobPosting({
+    title: job?.value?.title,
+    description: job?.value?.description,
+    hiringOrganization: {
+      name: job?.value?.company.name ?? ''
+    },
+    datePosted: job?.value?.postedAt
+
+  })
+])
 
 </script>
 

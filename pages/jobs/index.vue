@@ -86,6 +86,26 @@ useServerSeoMeta({
   ogDescription: 'Remote Dev Jobs offers top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.'
 })
 
+useSchemaOrg([
+  ...jobs.value.map((job) => {
+    return defineJobPosting({
+      // baseSalary: job.salary,
+      // datePosted: job.postedAt,
+      // jobLocation: job.locations.map(location => location.name).join(', '),
+      // title: job.title,
+      // directApply: job.link,
+      // employmentType: job.type,
+      // hiringOrganization: job.company.name
+      title: job.title,
+      datePosted: job.postedAt,
+      hiringOrganization: {
+        name: job.company.name,
+        url: undefined
+      }
+    })
+  })
+])
+
 const updateJobFilters = async (updatedFilters: {
   locations? : string
   tags? : string

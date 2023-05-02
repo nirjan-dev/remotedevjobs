@@ -75,6 +75,15 @@ useHead({
     }
   ]
 })
+
+useSchemaOrg([
+  defineWebSite({
+    name: 'Remote Dev Jobs'
+  }),
+  defineWebPage({
+    image: '/assets/images/og.jpg'
+  })
+])
 </script>
 
 <style>
