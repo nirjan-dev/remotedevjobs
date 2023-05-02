@@ -18,14 +18,6 @@ export default defineEventHandler(async (event: H3Event) => {
 
   const benefitsFilter = query.benefits === 'undefined' ? undefined : query.benefits?.toString().split(',') || undefined
 
-  console.log({
-    locationsFilter,
-    rolesFilter,
-    experienceLevelsFilter,
-    tagsFilter,
-    benefitsFilter
-  })
-
   // send all jobs
   const [jobs, count] = await Promise.all([PrismaClient.job.findMany({
     orderBy: {
@@ -161,6 +153,5 @@ export default defineEventHandler(async (event: H3Event) => {
       }
     }
   })])
-  console.log({ count })
   return { jobs, count }
 })
