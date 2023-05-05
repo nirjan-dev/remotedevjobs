@@ -10,15 +10,6 @@
         <li>
           <nuxt-link
             class="text-gray-300 no-underline transition-colors hover:text-gray-50"
-            to="/"
-          >
-            Home
-          </nuxt-link>
-        </li>
-
-        <li>
-          <nuxt-link
-            class="text-gray-300 no-underline transition-colors hover:text-gray-50"
             to="/jobs"
           >
             Jobs
@@ -40,6 +31,15 @@
             to="/jobs/4-day-week"
           >
             4 day week
+          </nuxt-link>
+        </li>
+
+        <li>
+          <nuxt-link
+            class="text-gray-300 no-underline transition-colors hover:text-gray-50"
+            to="/blog"
+          >
+            Blog
           </nuxt-link>
         </li>
       </ul>
