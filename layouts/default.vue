@@ -5,8 +5,8 @@
     <nav-bar />
     <div class="container px-3 py-6 mx-auto">
       <slot />
-      <div class="fixed bottom-0 left-0 w-full px-6 py-4 text-white bg-gray-700 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
-        <div class="flex flex-wrap items-center justify-center w-full gap-2 mx-auto">
+      <div class="fixed bottom-0 left-0 w-full px-6 text-white bg-gray-700 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
+        <div class="flex flex-wrap items-center justify-center w-full mx-auto mb-3">
           <p
             class="mr-2 text-base font-bold md:text-lg "
           >
@@ -92,7 +92,7 @@ ul {
 }
 
 a {
-  @apply text-blue-700 underline;
+  @apply text-green-400 no-underline;
 }
 
 *, *::before, *::after {
