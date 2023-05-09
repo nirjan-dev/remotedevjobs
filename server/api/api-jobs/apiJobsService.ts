@@ -61,7 +61,7 @@ export const createJobFromAPIJob = async (job: JobFromAPIs, PrismaClient: Prisma
 export const addJobToQueueFromAPIJob = async (job: JobFromAPIs, PrismaClient: PrismaClient) => {
   const existingJobSearch = PrismaClient.job.findUnique({
     where: {
-      slug: job.slug
+      link: job.link
     }
   })
 

@@ -35,7 +35,7 @@ export default defineEventHandler(async (event: H3Event) => {
     logger.error(error, 'Error creating job from queue item', { jobTitle: job.title, jobLink: job.link })
     throw createError({
       statusCode: 500,
-      statusMessage: 'Error resolving queue' + error.message
+      statusMessage: 'Error resolving queue ' + job.link + error.message
     })
   }
 
