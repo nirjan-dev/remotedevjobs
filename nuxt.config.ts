@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     version: '0.0.1',
     convertkit_api_key: ''
   },
-  modules: ['@nuxtjs/tailwindcss', 'nuxt-svgo', '@huntersofbook/naive-ui-nuxt', 'nuxt-gtag', 'nuxt-simple-sitemap', 'nuxt-schema-org'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-svgo', '@huntersofbook/naive-ui-nuxt', 'nuxt-gtag', 'nuxt-simple-sitemap', 'nuxt-schema-org', '@nuxt/content'],
   extends: ['@sidebase/core'],
   typescript: {
     shim: false
