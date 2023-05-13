@@ -97,17 +97,17 @@ useServerSeoMeta({
   ogDescription: description
 })
 
-useSchemaOrg([
-  defineJobPosting({
-    title: job?.value?.title,
-    description: job?.value?.description,
-    hiringOrganization: {
-      name: job?.value?.company.name ?? ''
-    },
-    datePosted: job?.value?.postedAt
+// useSchemaOrg([
+//   defineJobPosting({
+//     title: job?.value?.title,
+//     description: job?.value?.description,
+//     hiringOrganization: {
+//       name: job?.value?.company.name ?? ''
+//     },
+//     datePosted: job?.value?.postedAt
 
-  })
-])
+//   })
+// ])
 
 </script>
 
