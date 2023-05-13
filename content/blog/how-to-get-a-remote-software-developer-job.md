@@ -1,8 +1,13 @@
 ---
 title: "Step-by-Step guide to get a remote software developer job with helpful resources"
 description: "Learn how to find a remote developer job online with this step-by-step guide. Includes helpful resources and tips for each step of the process."
-image: "/assets/images/blog/how-to-find-remote-dev-job.jpg"
-date: "May 5th, 2023"
+image:
+    src: "/assets/images/blog/how-to-find-remote-dev-job.jpg"
+    alt: "A Laptop screen with some code"
+    width: 1920
+    height: 1080
+datePublished: "5/9/2023"
+dateModified:
 ---
 
 I’ve been working remotely as a software developer and technical lead for several years, But I still remember how challenging the job search process was. I've also worked with my HR team on hiring other remote developers, giving me an understanding of what employers are looking for.
