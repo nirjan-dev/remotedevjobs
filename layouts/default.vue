@@ -65,7 +65,24 @@ useHead({
     {
       name: 'og:image',
       content: '/assets/images/og.jpg'
+    },
+    {
+      name: 'og:image:width',
+      content: '1200'
+    },
+    {
+      name: 'og:image:height',
+      content: '630'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image'
+    },
+    {
+      name: 'twitter:image',
+      content: '/assets/images/og.jpg'
     }
+
   ],
   link: [
     {
