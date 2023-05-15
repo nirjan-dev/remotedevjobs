@@ -64,7 +64,7 @@ useHead({
   meta: [
     {
       name: 'og:image',
-      content: '/assets/images/og.jpg'
+      content: 'https://remotedevjobs.net/assets/images/og.jpg'
     },
     {
       name: 'og:image:width',
@@ -80,7 +80,7 @@ useHead({
     },
     {
       name: 'twitter:image',
-      content: '/assets/images/og.jpg'
+      content: 'https://remotedevjobs.net/assets/images/og.jpg'
     }
 
   ],
