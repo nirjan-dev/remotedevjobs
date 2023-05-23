@@ -8,10 +8,10 @@
       <img :height="doc.image.height" :width="doc.image.width" class="object-cover max-w-full max-h-72" :src="doc.image.src">
 
       <p class="flex items-center">
-        Written By: <a class="ml-1 mr-2" href="https://nirjan.dev">Nirjan Khadka</a>
-        <n-tag round :bordered="false">
+        Written By: <a class="ml-1 mr-2" href="https://nirjan.dev">Nirjan Khadka</a> on&nbsp;
+        <span>
           {{ getFormattedDate(doc.dateModified ?? doc.datePublished) }}
-        </n-tag>
+        </span>
       </p>
 
       <ContentRenderer :value="doc" />
