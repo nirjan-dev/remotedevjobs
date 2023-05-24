@@ -39,6 +39,7 @@
 import { darkTheme } from 'naive-ui'
 
 const showModal = ref(false)
+const route = useRoute()
 
 const openModal = () => {
   showModal.value = true
@@ -63,6 +64,11 @@ useHead({
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "gezr3qvknq");`
+    },
+    {
+      src: 'https://w.appzi.io/w.js?token=dfagO',
+      async: true
+
     }
   ],
   meta: [
@@ -93,6 +99,10 @@ useHead({
       rel: 'icon',
       type: 'image/x-icon',
       href: '/favicon.ico'
+    },
+    {
+      rel: 'canonical',
+      href: `https://remotedevjobs.net${route.path}`
     }
   ]
 })
