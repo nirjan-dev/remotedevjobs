@@ -60,6 +60,7 @@
           target="_blank"
           :href="job.link"
           size="large"
+          @click="useTrackEvent('apply_job', { job_title: job.title, job_link: job.link })"
         >
           Apply
         </n-button>
@@ -68,7 +69,7 @@
           secondary
           size="large"
         >
-          <nuxt-link :to="`/jobs/${job.slug}`">
+          <nuxt-link :to="`/jobs/${job.slug}`" @click="useTrackEvent('view_job_details', {job_title: job.title, job_link: job.link})">
             View Details
           </nuxt-link>
         </button-link>

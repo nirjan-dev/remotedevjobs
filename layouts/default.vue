@@ -12,7 +12,7 @@
           >
             Get weekly job alerts in your inbox
           </p>
-          <n-button type="warning" :round="true" @click="showModal = true">
+          <n-button type="warning" :round="true" @click="openModal">
             <span class="text-lg font-bold">Subscribe</span>
           </n-button>
         </div>
@@ -40,6 +40,10 @@ import { darkTheme } from 'naive-ui'
 
 const showModal = ref(false)
 
+const openModal = () => {
+  showModal.value = true
+  useTrackEvent('open_subscribe_modal')
+}
 useHead({
   script: [
     {

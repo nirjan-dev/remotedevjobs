@@ -33,6 +33,7 @@
             type="success"
             size="large"
             class="text-gray-900"
+            @click="useTrackEvent('apply_job', { job_title: job.title, job_link: job.link })"
           >
             Apply
           </n-button>
@@ -58,6 +59,7 @@
             type="success"
             size="large"
             class="text-gray-900"
+            @click="useTrackEvent('apply_job', { job_title: job.title, job_link: job.link })"
           >
             Apply
           </n-button>

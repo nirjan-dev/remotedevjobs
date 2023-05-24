@@ -10,19 +10,19 @@
       <n-form-item class="col-span-12" label="First Name" path="firstName">
         <n-input
           v-model:value="formValue.firstName"
-          class="rounded px-2 py-2"
+          class="px-2 py-2 rounded"
           placeholder="Your First Name"
         />
       </n-form-item>
       <n-form-item class="col-span-12" label="Email" path="email">
         <n-input
           v-model:value="formValue.email"
-          class="rounded px-2 py-2"
+          class="px-2 py-2 rounded"
           placeholder="your@email.com"
         />
       </n-form-item>
       <n-form-item class="col-span-12">
-        <n-button type="success" class="w-full px-2 py-2 rounded-full font-bold">
+        <n-button :attr-type="'submit'" type="success" class="w-full px-2 py-2 font-bold rounded-full">
           {{ isLoading ? 'Subscribing...' : 'Subscribe' }}
         </n-button>
       </n-form-item>
@@ -77,6 +77,8 @@ const onSubmit = async (event: Event) => {
     return
   }
 
+  useTrackEvent('newsletter_subscribe_attempt')
+
   isLoading.value = true
 
   const body = JSON.stringify({
@@ -98,9 +100,13 @@ const onSubmit = async (event: Event) => {
       firstName: '',
       email: ''
     }
+
+    useTrackEvent('newsletter_subscribe_success')
   } catch {
     success.value = false
     isLoading.value = false
+
+    useTrackEvent('newsletter_subscribe_failure')
   }
 }
 
