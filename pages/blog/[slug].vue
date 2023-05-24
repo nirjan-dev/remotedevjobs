@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import { use } from 'h3'
 import { Post } from '~/types/blog.types'
 
 const route = useRoute()
@@ -41,6 +42,10 @@ useSchemaOrg([
 
   })
 ])
+
+useServerSeoMeta({
+  ogImage: `https://remotedevjobs.net/${post.value?.image?.src}`
+})
 </script>
 
 <style>

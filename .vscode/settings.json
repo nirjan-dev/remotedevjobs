@@ -20,5 +20,6 @@
     "*.css": "tailwindcss"
   },
   "volar.autoCompleteRefs": true,
-  "cSpell.words": ["lastmod"]
+  "cSpell.words": ["lastmod"],
+  "conventionalCommits.scopes": ["blog"]
 }
