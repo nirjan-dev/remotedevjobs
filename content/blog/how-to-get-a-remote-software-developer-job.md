@@ -1,20 +1,20 @@
 ---
-title: "Step-by-Step guide to get a remote software developer job with helpful resources"
+title: "How to find remote software developer jobs - Complete guide with resources"
 description: "Learn how to find a remote developer job online with this step-by-step guide. Includes helpful resources and tips for each step of the process."
 image:
     src: "/assets/images/blog/how-to-find-remote-dev-job.jpg"
     alt: "A Laptop screen with some code"
     width: 1920
     height: 1080
-datePublished: "5/9/2023"
+datePublished: "6/6/2023"
 dateModified:
 ---
 
-I’ve been working remotely as a software developer and technical lead for several years, But I still remember how challenging the job search process was. I've also worked with my HR team on hiring other remote developers, giving me an understanding of what employers are looking for.
+I’ve been working remotely as a software developer for several years, But I still remember how challenging the job search was. I've also worked with my HR team on hiring other remote developers, giving me an understanding of what employers are looking for. This guide covers everything I wish I knew when I was looking for a remote developer job.
 
-Additionally, as someone from Nepal, where it’s harder to secure a remote developer position compared to the US or other western countries, I've learned how to navigate the challenges of the job search process and make it easier for me.
+Additionally, as someone from Nepal, where it’s harder to secure a remote developer position compared to the US or other western countries, I've learned how to navigate the challenges of the job search process.
 
-With my experience, I'm confident that I can help you in your own job search. In this guide, I'll take you through the step-by-step process of securing your dream job as a remote software developer. I'll also provide helpful resources and tips along the way. So, whether you're just starting your job search or have been searching for a while, I'm here to help you succeed. Let's get started!
+I'll also provide helpful resources and tips along the way. So, whether you're just starting your job search or have been searching for a while, I'm here to help you succeed. Let's get started!
 
 ## How to Get a Remote Software Developer Job
 
