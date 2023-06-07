@@ -84,13 +84,13 @@ const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
 }
 
 // get duration from job type
-const getDurationFromReducedHoursAndOriginalTitle = (reducedHours: string, originalTitle: string) => {
+const getDurationFromReducedHoursAndOriginalTitle = (reducedHours: string, originalTitle?: string) => {
   let duration = 'Full Time'
   if (reducedHours === 'Part time') {
     duration = 'Part Time'
   }
 
-  if (originalTitle.toLowerCase().includes('contract')) {
+  if (originalTitle?.toLowerCase().includes('contract')) {
     duration = 'Contract'
   }
 
