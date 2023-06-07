@@ -40,7 +40,7 @@
           No Jobs Found
         </p>
 
-        <n-pagination :page="page" class="mt-6 mb-6" :page-count="pageCount" @update-page="changePage">
+        <n-pagination simple :page="page" class="mt-6 mb-6" :page-count="pageCount" @update-page="changePage">
           <!-- <template #prev>
             <NuxtLink :to="`/jobs/page/${page - 1}`">
               Prev

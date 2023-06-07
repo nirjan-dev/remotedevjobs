@@ -33,8 +33,9 @@
     </p>
 
     <p v-if="success">
-      Thanks for subscribing 🙏, Please confirm your
-      subscription by clicking on the link sent to your inbox to make sure you get the weekly job posts.
+      Please confirm your
+      subscription by clicking the confirmation link in your inbox.
+      Thanks for subscribing 🙏
     </p>
   </div>
 </template>

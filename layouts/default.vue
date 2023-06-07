@@ -6,14 +6,14 @@
     <div class="container px-3 py-6 mx-auto">
       <slot />
       <div class="fixed bottom-0 left-0 w-full px-6 text-white bg-gray-700 border-t-2 border-gray-900 shadow-2xl shadow-gray-600">
-        <div class="flex flex-wrap items-center justify-center w-full mx-auto mb-3">
+        <div class="flex flex-wrap items-center justify-center w-full pb-3 mx-auto md:pb-0">
           <p
             class="mr-2 text-base font-bold md:text-lg "
           >
-            Get weekly job alerts in your inbox
+            Get more job posts directly in your inbox
           </p>
-          <n-button type="warning" :round="true" @click="openModal">
-            <span class="text-lg font-bold">Subscribe</span>
+          <n-button type="error" :round="true" @click="openModal">
+            <span class="text-lg font-bold">Subscribe Now</span>
           </n-button>
         </div>
       </div>
@@ -24,10 +24,13 @@
 
       <n-modal v-model:show="showModal" class="max-w-xl" preset="card" size="medium">
         <template #header>
-          <h2 class="text-2xl font-bold">
-            Subscribe to the weekly job posts
+          <h2 class="text-xl font-bold">
+            Save time, find you next remote role faster
           </h2>
         </template>
+        <p>Subscribe to get remote dev job posts from multiple sites directly to your inbox</p>
+
+        <p>Unsubscribe anytime, No Spam, ever.</p>
 
         <newsletter-signup form-id="5018608" />
       </n-modal>
