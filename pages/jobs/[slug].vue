@@ -89,8 +89,8 @@ const { data: job } = await useFetch(
   `/api/jobs/${params.slug}`
 )
 
-const title = `${job?.value?.title} - Remote Dev Jobs`
-const description = `Apply for ${job?.value?.title} at ${job?.value?.company.name} with Remote Dev Jobs`
+const title = `${job?.value?.title} Job at ${job.value?.company.name} | Remote Dev Jobs`
+const description = `${job.value?.company.name} is hiring a ${job.value?.title}. Apply to this remote role with Remote Dev Jobs`
 
 useServerSeoMeta({
   title,
