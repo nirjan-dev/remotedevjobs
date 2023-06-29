@@ -67,8 +67,8 @@ const pageCount = computed(() => Math.ceil((data.value?.count ?? 1) / jobsPerPag
 const jobs = computed(() => data.value?.jobs ?? [])
 
 useServerSeoMeta({
-  title: '4-Day Work Week Jobs | Find Flexible Tech Jobs & Companies on remotedevjobs.net',
-  description: 'Discover 4-day work week jobs and companies offering flexibility for a healthy work-life balance. Browse our list of 4-day work week tech jobs across various industries, and find the perfect fit for you. Start your journey towards a healthier work-life balance today!',
+  title: '4 Day Work Week Jobs for Software Engineers | Remote Tech Jobs',
+  description: 'Find 4-day work week jobs and companies offering flexibility for a healthy work-life balance. Discover the perfect job for you.',
   ogTitle: 'Worldwide Remote Jobs - Work from Anywhere | Remote Developer Jobs',
   ogDescription: 'Discover 4-day work week jobs and companies offering flexibility for a healthy work-life balance. Browse our list of 4-day work week tech jobs across various industries, and find the perfect fit for you. Start your journey towards a healthier work-life balance today!'
 })

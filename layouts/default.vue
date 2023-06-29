@@ -49,6 +49,9 @@ const openModal = () => {
   useTrackEvent('open_subscribe_modal')
 }
 useHead({
+  htmlAttrs: {
+    lang: 'en'
+  },
   script: [
     {
       src: 'https://rum.cronitor.io/script.js',

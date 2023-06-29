@@ -5,7 +5,7 @@
         {{ doc.title }}
       </h1>
 
-      <img :height="doc.image.height" :width="doc.image.width" class="object-cover max-w-full max-h-72" :src="doc.image.src">
+      <img :height="doc.image.height" :width="doc.image.width" class="object-cover max-w-full max-h-72" :src="doc.image.src" :alt="doc.image.alt">
 
       <p class="flex items-center">
         Written By: <a class="ml-1 mr-2" href="https://nirjan.dev">Nirjan Khadka</a> on&nbsp;

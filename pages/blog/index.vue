@@ -15,7 +15,7 @@
         <nuxt-link :to="`${post._path}`" class="no-underline">
           <n-card :bordered="false">
             <template #cover>
-              <img :height="post.image.height" :width="post.image.width" class="object-cover max-h-60" :src="post.image.src">
+              <img :height="post.image.height" :width="post.image.width" class="object-cover max-h-60" :src="post.image.src" :alt="post.image.alt">
             </template>
             <h2>{{ post.title }}</h2>
             <n-tag round :bordered="false">

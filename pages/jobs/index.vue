@@ -80,8 +80,8 @@ const pageCount = computed(() => Math.ceil((data.value?.count ?? 1) / jobsPerPag
 const jobs = computed(() => data.value?.jobs ?? [])
 
 useServerSeoMeta({
-  title: 'Remote Dev Jobs - Job Board to find tech jobs, programming and full stack developer jobs',
-  description: 'Explore top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.',
+  title: 'Remote Dev Jobs - Find tech, programming & full stack developer jobs',
+  description: 'Explore top-quality remote software engineering jobs and web developer roles. Explore our listings and find your perfect software engineer remote job.',
   ogTitle: 'Remote Dev Jobs - Job Board to find software engineer, programming and full stack developer jobs',
   ogDescription: 'Remote Dev Jobs offers top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.'
 })

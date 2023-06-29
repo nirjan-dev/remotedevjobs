@@ -11,8 +11,8 @@
     </page-description>
 
     <div class="grid grid-cols-12">
-      <main class=" col-span-12 md:col-start-4 md:col-end-10">
-        <h2 class="text-xl mb-4 font-bold flex justify-between flex-wrap">
+      <main class="col-span-12 md:col-start-4 md:col-end-10">
+        <h2 class="flex flex-wrap justify-between mb-4 text-xl font-bold">
           Latest Remote Developer Jobs
 
           <nuxt-link to="/jobs" class="text-blue-500">
@@ -33,7 +33,7 @@
           Error loading job posts
         </p>
 
-        <nuxt-link to="/jobs" class="text-blue-500 text-lg underline mb-6 inline-block">
+        <nuxt-link to="/jobs" class="inline-block mb-6 text-lg text-blue-500 underline">
           Browse and filter through all {{ count }} jobs
         </nuxt-link>
       </main>
@@ -54,8 +54,8 @@ const jobs = data.value?.jobs ?? []
 const count = data.value?.count ?? 1
 
 useServerSeoMeta({
-  title: 'Remote Dev Jobs - Job Board to find software engineer, programming and full stack developer jobs',
-  description: 'Remote Dev Jobs offers top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.',
+  title: 'Remote Dev Jobs - Find remote software engineer and programming jobs',
+  description: 'Remote Dev Jobs offers quality remote software engineering jobs and web developer roles. Find your perfect software engineer remote job.',
   ogTitle: 'Remote Dev Jobs - Job Board to find software engineer, programming and full stack developer jobs',
   ogDescription: 'Remote Dev Jobs offers top-quality remote software engineering jobs, as well as junior developer and web developer roles. Explore our listings and find your perfect software engineer remote job today!.'
 })

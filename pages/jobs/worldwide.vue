@@ -67,8 +67,8 @@ const pageCount = computed(() => Math.ceil((data.value?.count ?? 1) / jobsPerPag
 const jobs = computed(() => data.value?.jobs ?? [])
 
 useServerSeoMeta({
-  title: 'Worldwide Remote Jobs - Work from Anywhere | Remote Developer Jobs by remotedevjobs.net',
-  description: 'Find remote jobs worldwide and work from anywhere with our comprehensive list of remote developer jobs. Browse opportunities of different experience levels, technology stacks, and job roles. Start your journey towards a more flexible and fulfilling work-life today!',
+  title: 'Remote Developer Jobs Worldwide - Work from Anywhere in the world',
+  description: 'Find remote jobs worldwide and work from anywhere in the globe. Browse opportunities of different experience levels, technology stacks, and job roles.',
   ogTitle: 'Worldwide Remote Jobs - Work from Anywhere | Remote Developer Jobs',
   ogDescription: 'Find remote jobs worldwide and work from anywhere with our comprehensive list of remote developer jobs. Browse opportunities of different experience levels, technology stacks, and job roles. Start your journey towards a more flexible and fulfilling work-life today!'
 })
