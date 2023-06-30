@@ -16,6 +16,17 @@ export interface RemotiveJob {
   company_logo_url: string;
 }
 
+export interface WorkingNomadsJob {
+  url: string,
+  title: string,
+  description: string,
+  company_name: string,
+  category_name: string,
+  tags: string,
+  location: string,
+  pub_date: string
+}
+
 export interface FourDayWeekJob {
   title_original: string;
     title: string;
