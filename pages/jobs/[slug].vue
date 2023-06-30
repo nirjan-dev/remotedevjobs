@@ -23,6 +23,9 @@
           {{ job.salary }}
         </n-tag>
       </div>
+      <div>
+        <p>Posted on {{ getFormattedDate(job.postedAt) }}</p>
+      </div>
       <div class="my-4">
         <n-button-group>
           <n-button
