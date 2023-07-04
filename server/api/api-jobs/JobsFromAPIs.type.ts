@@ -118,3 +118,36 @@ export interface HimalayasJob {
   applicationLink: string;
   guid: string;
 }
+type Seniority = 'NOT_STATED';
+
+export type PostitionType = 'CONTRACT' | 'FULL_TIME';
+
+ type ScrapedLocation = 'Worldwide' | 'Anywhere';
+export interface DevRemoteJob {
+  id: string;
+  createdAt: string;
+  slug: string;
+  title: string;
+  location: Seniority[];
+  scrapedLocation: ScrapedLocation | null;
+  company: string;
+  companyLogo: string;
+  seniority: Seniority;
+  industry: any[];
+  featured: boolean;
+  tags: string[];
+  stack: string[];
+  hours: null | string;
+  flexibleHours: boolean;
+  postitionType: PostitionType | null;
+  description: string;
+  techStack: string[];
+  salary: number | null;
+  salaryLower: number;
+  salaryUpper: number;
+  applicationLink: string;
+  scrapedJob: boolean;
+  isLive: boolean | null;
+  paymentDate: null;
+  noSalary: boolean | null;
+}

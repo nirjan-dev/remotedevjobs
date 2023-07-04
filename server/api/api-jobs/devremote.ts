@@ -1,31 +1,49 @@
 import { H3Event } from 'h3'
 import slug from 'slug'
 import { addJobToQueueFromAPIJob, benefitsParser } from '~~/server/api/api-jobs/apiJobsService'
-import { JobFromAPIs, WorkingNomadsJob } from '~~/server/api/api-jobs/JobsFromAPIs.type'
+import { DevRemoteJob, JobFromAPIs } from '~~/server/api/api-jobs/JobsFromAPIs.type'
 
 export default defineEventHandler(async (event: H3Event) => {
-  const data = await (await fetch('https://www.workingnomads.com/api/exposed_jobs/'))
+  const data = await (await fetch('https://devremote.io/api/jobs/filter', {
+    method: 'POST',
+    body: JSON.stringify({
+      query: {
+        search: '',
+        techStack: [],
+        date: 'ALL',
+        employmentType: 'FULL_TIME',
+        removeCompetitiveSalary: false,
+        salaryRange: {
+          min: 0,
+          max: 10000000
+        },
+        tags: []
+      },
+      pageSize: 30,
+      skip: 0
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }))
 
-  const responseData: WorkingNomadsJob[] = await data.json()
-
-  const devJobs = responseData.filter(job => job.category_name.toLowerCase() === 'development')
+  const responseData: {jobs: DevRemoteJob[]} = await data.json()
 
   const PrismaClient = event.context.prisma
 
-  const jobsFromAPI = devJobs.map(job => getApiJobFromWorkingNomadsJob(job))
+  const jobsFromAPI = responseData.jobs.map(job => getAPIJobFromDevRemoteJob(job))
 
   const jobsAddedToQueue = await Promise.all(jobsFromAPI.map(async (job) => {
     return await addJobToQueueFromAPIJob(job, PrismaClient)
   }))
 
   return {
-    success: true,
-    jobs: jobsAddedToQueue
+    jobsAddedToQueue
   }
 })
 
-const getApiJobFromWorkingNomadsJob = (job: WorkingNomadsJob): JobFromAPIs => {
-  const experienceLevel = getExperienceLevelFromTitle(job.title)
+const getAPIJobFromDevRemoteJob = (job: DevRemoteJob): JobFromAPIs => {
+  const experienceLevel = getExperienceLevelFromJob(job)
 
   const role = getRoleFromTitle(job.title)
 
@@ -33,46 +51,61 @@ const getApiJobFromWorkingNomadsJob = (job: WorkingNomadsJob): JobFromAPIs => {
 
   const benefits = getBenefitsFromDescription(job.description)
 
-  const locations = job.location.split(',').map((location) => {
-    return {
-      name: location.trim(),
-      slug: slug(location.trim())
-    }
-  })
+  const duration = job.postitionType?.toLowerCase() ?? 'Full Time'
+
+  const salary = job.noSalary ? `${job.salaryLower} - ${job.salaryUpper}` : 'unknown salary'
 
   return {
     ...job,
-    company: {
-      description: '',
-      name: job.company_name,
-      slug: slug(job.company_name),
-      logo: ''
+    // I'm only searching worldwide jobs from the endpoint
+    locations: [{
+      name: 'worldwide',
+      slug: slug('worldwide')
+    }],
+
+    duration: {
+      name: duration,
+      slug: slug(duration)
     },
-    locations,
+
     experienceLevel: {
       name: experienceLevel,
       slug: slug(experienceLevel)
     },
+
     role: {
       name: role,
       slug: slug(role)
     },
-    tags,
+
     benefits,
-    duration: {
-      name: 'Full Time',
-      slug: 'full-time'
+
+    link: job.applicationLink,
+
+    postedAt: new Date(job.createdAt),
+
+    company: {
+      name: job.company,
+      description: '',
+      logo: job.companyLogo,
+      slug: slug(job.company)
     },
-    salary: 'unknown salary',
-    link: job.url,
-    postedAt: new Date(job.pub_date),
-    slug: slug(job.title + '-' + job.company_name + '-' + new Date(job.pub_date).getTime())
+
+    tags,
+
+    salary
+
   }
 }
 
-// get experience level from job title
-const getExperienceLevelFromTitle = (title: string) => {
+const getExperienceLevelFromJob = (job: DevRemoteJob) => {
   let experienceLevel = ''
+
+  if (job.seniority && job.seniority !== 'NOT_STATED') {
+    return job.seniority
+  }
+
+  const title = job.title
 
   if (title.toLowerCase().includes('senior')) {
     experienceLevel = 'senior'
@@ -152,7 +185,7 @@ const getRoleFromTitle = (title: string) => {
   return role
 }
 
-const getTagsFromJobTags = (tags: string) => tags.split(',').map((tag) => {
+const getTagsFromJobTags = (tags: string[]) => tags.map((tag) => {
   return {
     name: tag,
     slug: slug(tag.replace(/#/g, 'sharp '))
