@@ -151,3 +151,37 @@ export interface DevRemoteJob {
   paymentDate: null;
   noSalary: boolean | null;
 }
+
+ type Hide = 'no';
+ type CompanyRegions = 'Africa, Asia, Latin America, Europe, North America, Oceania' | 'North America' | 'Europe, Middle East, Africa, Asia, Latin America';
+ type IsOld = 'Old';
+type RoleCategory = 'Development';
+
+export interface TrulyRemoteFields {
+  listingID: number;
+  role: string;
+  companyID: string[];
+  roleApplyURL: string;
+  roleCategory: RoleCategory[];
+  companyName: string[];
+  companyIndustry: string[];
+  companyLogoURL: string[];
+  createdOn: Date;
+  Hide: Hide;
+  companyRegions: CompanyRegions;
+  useListingRegions: string;
+  test: number;
+  test2: number;
+  test3: number;
+  testSearch: number;
+  roleLower: string;
+  companyIDLower: string;
+  expirationDate: Date;
+  listingRegions?: string[];
+  isOld?: IsOld;
+}
+
+export interface TrulyRemoteRecord {
+  id: string;
+  fields: TrulyRemoteFields;
+}
