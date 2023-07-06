@@ -10,7 +10,7 @@
           <p
             class="mr-2 text-base font-bold md:text-lg "
           >
-            Get more job posts directly in your inbox
+            Get weekly job alerts in your inbox
           </p>
           <n-button type="error" :round="true" @click="openModal">
             <span class="text-lg font-bold">Subscribe Now</span>
@@ -25,10 +25,10 @@
       <n-modal v-model:show="showModal" class="max-w-xl" preset="card" size="medium">
         <template #header>
           <h2 class="text-xl font-bold">
-            Save time, find you next remote role faster
+            Let the Job posts come to you instead of you looking for them
           </h2>
         </template>
-        <p>Subscribe to get remote dev job posts from multiple sites directly to your inbox</p>
+        <p>Subscribe to get remote roles from multiple sites delivered to your inbox</p>
 
         <p>Unsubscribe anytime, No Spam, ever.</p>
 
