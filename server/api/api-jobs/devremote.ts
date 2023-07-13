@@ -93,7 +93,8 @@ const getAPIJobFromDevRemoteJob = (job: DevRemoteJob): JobFromAPIs => {
 
     tags,
 
-    salary
+    salary,
+    slug: slug(job.slug)
 
   }
 }
