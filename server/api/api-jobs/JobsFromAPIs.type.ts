@@ -54,7 +54,7 @@ export interface FourDayWeekJob {
       url: string;
       name: string;
       category: string;
-      short_description: string;
+      short_description?: string;
       description?: string;
       slug: string;
       country: string;

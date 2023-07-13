@@ -37,7 +37,7 @@ const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
 
     tags = getTagsFromFilters(job.filters)
 
-    benefits = getBenefitsFromCompanyDescription(job.company.description ?? job.company.short_description)
+    benefits = getBenefitsFromCompanyDescription(job.company.description ?? job.company.short_description ?? job.description)
 
     location = getLocationFromLocationFields(job.location_continent, job.location_country)
   } catch (error: any) {
@@ -56,7 +56,7 @@ const getApiJobFromFourDayWeekJob = (job: FourDayWeekJob): JobFromAPIs => {
       name: job.company.name,
       logo: job.company.logo_url,
       slug: slug(job.company.name),
-      description: marked.parse(job.company.description ?? job.company.short_description)
+      description: marked.parse(job.company.description ?? job.company.short_description ?? '')
     },
     locations: [{
       name: location,
