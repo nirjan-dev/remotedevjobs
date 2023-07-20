@@ -78,6 +78,44 @@
         </n-button-group>
       </div>
     </main>
+    <aside class="col-span-12 mt-6 lg:mt-12 md:col-start-4 md:col-end-10">
+      <template v-if="job.similarJobs && job.similarJobs.length > 0">
+        <h2>Similar Jobs</h2>
+        <ul>
+          <li v-for="similarJob in job.similarJobs" :key="similarJob.id" class="mb-8">
+            <job-list-item :job="similarJob" />
+          </li>
+        </ul>
+        <button-link
+          type="info"
+          secondary
+          size="large"
+        >
+          <nuxt-link :to="`/jobs`">
+            View All Jobs
+          </nuxt-link>
+        </button-link>
+      </template>
+
+      <h2 class="mt-6 lg:mt-12">
+        Resources to find remote jobs
+      </h2>
+      <ul v-if="posts" class="grid">
+        <li v-for="post in posts" :key="post._id" class="col-span-12 mb-6 md:col-start-4 md:col-end-10">
+          <nuxt-link :to="`${post._path}`" class="no-underline">
+            <n-card :bordered="false">
+              <template #cover>
+                <img :height="post.image.height" :width="post.image.width" class="object-cover max-h-60" :src="post.image.src" :alt="post.image.alt">
+              </template>
+              <h2>{{ post.title }}</h2>
+              <n-tag round :bordered="false">
+                {{ getFormattedDate(post.dateModified ?? post.datePublished) }}
+              </n-tag>
+            </n-card>
+          </nuxt-link>
+        </li>
+      </ul>
+    </aside>
   </div>
 
   <div v-else>
@@ -86,11 +124,15 @@
 </template>
 
 <script setup lang="ts">
+import { Post } from '~/types/blog.types'
+
 const { params } = useRoute()
 
 const { data: job } = await useFetch(
   `/api/jobs/${params.slug}`
 )
+
+const { data: posts } = await useAsyncData('posts', () => queryContent<Post>('/blog').find())
 
 const title = `${job?.value?.title} Job at ${job.value?.company.name} | Remote Dev Jobs`
 const description = `${job.value?.company.name} is hiring a ${job.value?.title}. Apply to this remote role with Remote Dev Jobs`
