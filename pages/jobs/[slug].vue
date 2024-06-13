@@ -5,15 +5,15 @@
         {{ job?.title }}
       </h1>
       <p class="my-4 text-lg">
-        {{ job.company.name }}
+        {{ job.company?.name }}
       </p>
       <div class="my-2">
         <div class="mb-4">
           <n-tag v-for="location in job.locations" :key="location.id" round class="mr-2" size="small">
             {{ location.name }}
           </n-tag>
-          <n-tag v-if="job.Duration.name" round size="small" class="mr-2">
-            {{ job.Duration.name }}
+          <n-tag v-if="job.Duration?.name" round size="small" class="mr-2">
+            {{ job.Duration?.name }}
           </n-tag>
           <n-tag v-for="benefit in job.benefits" :key="benefit.id" class="mr-2" round size="small">
             {{ benefit.name }}
@@ -128,14 +128,24 @@ import { Post } from '~/types/blog.types'
 
 const { params } = useRoute()
 
-const { data: job } = await useFetch(
-  `/api/jobs/${params.slug}`
-)
+const { data } = await useAsyncData('job-details-page', () => {
+  return Promise.all([
+    $fetch(
+    `/api/jobs/${params.slug}`
+    ),
+    queryContent<Post>('/blog').find()
+  ])
+})
 
-const { data: posts } = await useAsyncData('posts', () => queryContent<Post>('/blog').find())
+if (!data.value || !data.value[0] || (typeof data.value[0] !== 'object' || Array.isArray(data.value[0]))) {
+  throw createError({ statusCode: 404, statusMessage: 'Job not found' })
+}
 
-const title = `${job?.value?.title} Job at ${job.value?.company.name} | Remote Dev Jobs`
-const description = `${job.value?.company.name} is hiring a ${job.value?.title}. Apply to this remote role with Remote Dev Jobs`
+const job = data.value[0]
+const posts = data.value[1] ?? []
+
+const title = `${job.title} Job at ${job.company?.name} | Remote Dev Jobs`
+const description = `${job.company?.name} is hiring a ${job.title}. Apply to this remote role with Remote Dev Jobs`
 
 useServerSeoMeta({
   title,
@@ -144,17 +154,17 @@ useServerSeoMeta({
   ogDescription: description
 })
 
-// useSchemaOrg([
-//   defineJobPosting({
-//     title: job?.value?.title,
-//     description: job?.value?.description,
-//     hiringOrganization: {
-//       name: job?.value?.company.name ?? ''
-//     },
-//     datePosted: job?.value?.postedAt
+useSchemaOrg([
+  defineJobPosting({
+    title: job.title,
+    description: job.description,
+    hiringOrganization: {
+      name: job.company?.name ?? ''
+    },
+    datePosted: job.postedAt
 
-//   })
-// ])
+  })
+])
 
 </script>
 
